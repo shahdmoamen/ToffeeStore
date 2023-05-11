@@ -28,16 +28,25 @@ public Authentication(ArrayList<Customer> customers){
     }
 
     public boolean register(Customer customer) {
+    SendOTP sendotp=new SendOTP();
         DataManager dataManager = new DataManager();
         ArrayList<Customer> customers = dataManager.loadCustomers();
+        //check if  email is already is in the write format
+        if (!customer.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+            System.out.println("Invalid email format");
+            return false;
+        }
         for (Customer c : customers) {
             if (c.getEmail().equals(customer.getEmail())) {
                 return false;
             }
+        }if(!sendotp.sendVerificationCode(customer)){
+            return false;
         }
         customers.add(customer);
         dataManager.saveCustomers(customers);
         return true;
     }
+
 
 }

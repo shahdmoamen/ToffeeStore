@@ -65,7 +65,7 @@ public class DataManager {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ITEMS_FILE))) {
             for (Item item : items) {
                 //itemid,itemname,description,,price,itemstockquantity,discount,brand,category
-                writer.println(item.getId()+","+item.getName()+","+item.getQuantity()+","+item.getPrice()+","+item.getDescription()+","+item.getBrand()+","+item.getCategory()+","+item.getDiscount());
+                writer.println(item.getId() + "," + item.getName() + "," + item.getDescription() + "," + item.getPrice() + "," + item.getQuantity() + "," + item.getDiscount() + "," + item.getBrand() + "," + item.getCategory());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,9 +76,10 @@ public class DataManager {
         try (PrintWriter writer = new PrintWriter(new FileWriter(CARTS_FILE))) {
             for (Cart cart : carts) {
                 writer.println(cart.getTotalDiscount() + "," + cart.getTotal());
-                writer.println(cart.getCustomer().getId() + "," + cart.getCustomer().getFirstName() + "," + cart.getCustomer().getLastName() + "," + cart.getCustomer().getEmail() + "," + cart.getCustomer().getPassword() + "," + cart.getCustomer().getPhoneNumber() + "," + cart.getCustomer().getAddress());
+                writer.println("CUSTOMER"+","+cart.getCustomer().getId() + "," + cart.getCustomer().getFirstName() + "," + cart.getCustomer().getLastName() + "," + cart.getCustomer().getEmail() + "," + cart.getCustomer().getPassword() + "," + cart.getCustomer().getPhoneNumber() + "," + cart.getCustomer().getAddress());
                 for (OrderItem item : cart.getItems()) {
-                    writer.println("ITEM," + item.getItem().getId() + "," + item.getItem().getName() + "," + item.getItem().getDescription() + "," + item.getItem().getPrice() + "," + item.getQuantity());
+                    //ITEM,itemid,itemname,description,price,itemstockquantity,discount,brand,categoryquantitybought
+                    writer.println("ITEM," + item.getItem().getId() + "," + item.getItem().getName()+ "," + item.getItem().getDescription()+ ","  + item.getItem().getPrice() + ","+ item.getItem().getQuantity()+ "," + item.getItem().getDiscount()+ "," + item.getItem().getBrand()+ "," + item.getItem().getCategory()+ ","  + item.getQuantity());
                 }
 
             }
@@ -187,7 +188,7 @@ public class DataManager {
     }
     public ArrayList<Item> loadItems() {
         ArrayList<Item>items = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(ADMINS_FILE))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ITEMS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -195,11 +196,12 @@ public class DataManager {
                 String itemId = parts[0];
                 String itemName = parts[1];
                 String description = parts[2];
-                double price = Double.parseDouble(parts[3]);
                 int quantity= Integer.parseInt(parts[4]);
                 double discount = Double.parseDouble(parts[5]);
                 String brand = parts[6];
                 String category = parts[7];
+                double price = Double.parseDouble(parts[3]);
+
                 Item item = new Item(itemId, itemName, description, price,quantity,discount,brand,category);
                     items.add(item);
             }
@@ -207,49 +209,66 @@ public class DataManager {
             e.printStackTrace();
         }return items;
     }
-    public  ArrayList<Cart> loadCarts() {
+    public ArrayList<Cart> loadCarts() {
         ArrayList<Cart> carts = new ArrayList<>();
-        ArrayList<OrderItem>orderItems=new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(CARTS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] cartInfo = line.split(",");
-                float totalDiscount = Float.parseFloat(cartInfo[0]);
-                float totalPrice = Float.parseFloat(cartInfo[1]);
+                if (line.startsWith("CUSTOMER")) {
+                    // Create a new orderItems list for each customer
+                    ArrayList<OrderItem> orderItems = new ArrayList<>();
 
-                line = reader.readLine();
-                String[] customerInfo = line.split(",");
-                String customerId =customerInfo[2];
-                String firstName = customerInfo[3];
-                String lastName = customerInfo[3];
-                String email = customerInfo[4];
-                String password = customerInfo[5];
-                String phoneNumber = customerInfo[6];
-                String address = customerInfo[7];
-                Customer customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, address);
+                    // Parse customer info
+                    String[] customerInfo = line.split(",");
+                    String customerId = customerInfo[1];
+                    String firstName = customerInfo[2];
+                    String lastName = customerInfo[3];
+                    String email = customerInfo[4];
+                    String password = customerInfo[5];
+                    String phoneNumber = customerInfo[6];
+                    String address = customerInfo[7];
+                    Customer customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, address);
 
-                while ((line = reader.readLine()) != null && line.startsWith("ITEM")) {
-                    String[] itemInfo = line.split(",");
-                    String itemId = itemInfo[14];
-                    String itemName = itemInfo[15];
-                    String description = itemInfo[16];
-                    double price = Double.parseDouble(itemInfo[17]);
-                    int stockQuantity= Integer.parseInt(itemInfo[18]);
-                    double discount = Double.parseDouble(itemInfo[19]);
-                    String brand = itemInfo[20];
-                    String category = itemInfo[21];
-                    int quantity=Integer.parseInt(itemInfo[22]);
-                    Item item = new Item(itemId, itemName, description, price,stockQuantity,discount,brand,category);
-                    OrderItem orderItem = new OrderItem(item, quantity);
-                    orderItems.add(orderItem);
-                    Cart cart=new Cart(customer,orderItems,totalDiscount,totalPrice);
+                    double totalDiscount = 0.0;
+                    double totalPrice = 0.0;
+
+                    // Read the next line
+                    line = reader.readLine();
+
+                    while (line != null && line.startsWith("ITEM")) {
+                        // Parse item info
+                        String[] itemInfo = line.split(",");
+                        String itemId = itemInfo[1];
+                        String itemName = itemInfo[2];
+                        String description = itemInfo[3];
+                        double price = Double.parseDouble(itemInfo[4]);
+                        int stockQuantity = Integer.parseInt(itemInfo[5]);
+                        double discount = Double.parseDouble(itemInfo[6]);
+                        String brand = itemInfo[7];
+                        String category = itemInfo[8];
+                        int quantity = Integer.parseInt(itemInfo[9]);
+                        Item item = new Item(itemId, itemName, description, price, stockQuantity, discount, brand, category);
+                        OrderItem orderItem = new OrderItem(item, quantity);
+                        orderItems.add(orderItem);
+
+                        totalPrice += (price-discount) * quantity;
+
+                        totalDiscount += discount * quantity;
+
+                        // Read the next line
+                        line = reader.readLine();
+                    }
+
+                    // Create a new cart for the current customer
+                    Cart cart = new Cart(customer, orderItems, totalDiscount, totalPrice);
                     carts.add(cart);
-
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return carts;
     }
     public String getNextOrderId() {
@@ -291,6 +310,25 @@ public class DataManager {
             e.printStackTrace();
         }
         return Integer.toString(nextCustomerId+1);
+    }
+    public String getNextAdminId() {
+        int nextAdminId = 0;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("admins.csv"));
+            String line = reader.readLine();
+            while (line != null) {
+                String[] data = line.split(",");
+                int orderId = Integer.parseInt(data[0]);
+                if (orderId > nextAdminId) {
+                    nextAdminId = orderId;
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Integer.toString(nextAdminId+1);
     }
     public String getNextItemId() {
         int nextItemId = 0;

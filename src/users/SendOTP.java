@@ -61,4 +61,27 @@ public class SendOTP {
         }
         return isEmailSend;
     }
+    public boolean sendVerificationCode(Admin admin) {
+        boolean isEmailSend = false;
+        SendOTP sendOtp = new SendOTP();
+        int code = (int) (Math.random() * 900000) + 100000;
+        if (sendOtp.SendOTP(admin.getEmail(), code)) {
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                System.out.println("Please enter the verification code sent to your email or enter 0 to cancel:");
+                int inputCode = scanner.nextInt();
+                if (inputCode == code) {
+                    isEmailSend = true;
+                    System.out.println("Email verified successfully.");
+                    break;
+                } else if (inputCode == 0) {
+                    break;
+                } else {
+                    System.out.println("Incorrect verification code. Please try again.");
+                    isEmailSend = false;
+                }
+            }
+        }
+        return isEmailSend;
+    }
 }

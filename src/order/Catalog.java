@@ -40,9 +40,20 @@ public class Catalog {
     public ArrayList<Item> getItems() {
         return items;
     }
-    public void displayCatalog() {
+    @Override
+    public String toString() {
+        String s = "";
         for (Item item : items) {
-            System.out.println(item.getName()+" "+item.getPrice()+" L.E "+item.getDiscount());
+            s += item.getId()+" "+item.getName() +" Price "+item.getPrice()+" Dicount "+item.getDiscount() +"\n";
+        }return s;
+    }
+    //search for item by id
+    public Item searchItemById(String id) {
+        for (Item item : items) {
+            if (item.getId().equals(id)) {
+                return item;
+            }
         }
+        return null;
     }
 }

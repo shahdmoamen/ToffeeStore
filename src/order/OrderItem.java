@@ -26,7 +26,7 @@ public class OrderItem {
     }
 
     public double getSubtotal() {
-        return item.getPrice() * quantity;
+        return (item.getPrice() * quantity)-(item.getDiscount() * quantity);
     }
 
     @Override

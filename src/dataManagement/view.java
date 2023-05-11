@@ -2,13 +2,14 @@ package dataManagement;
 import order.*;
 import users.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class view {
     private static DataManager dataManager = new DataManager();
     private static Authentication authentication = new Authentication(dataManager.loadCustomers());
-    private static Catalog catalog=new Catalog(dataManager.loadItems());
+    private static Catalog catalog = new Catalog(dataManager.loadItems());
     private static Customer customer;
     private static Admin admin;
 
@@ -26,10 +27,10 @@ public class view {
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
-                        registerCustomer();
+                        register();
                         break;
                     case 2:
-                        loginCustomer();
+                        login();
                         break;
                     case 3:
                         browseCatalog();
@@ -41,52 +42,21 @@ public class view {
                 }
             } else if (customer != null) {
                 System.out.println("1. Browse items");
-                System.out.println("2. Add item to cart");
-                System.out.println("3. View cart");
-                System.out.println("4. Place order");
-                System.out.println("5. Logout");
+                System.out.println("2. View cart");
+                System.out.println("3. Place order");
+                System.out.println("4. Logout");
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
                     case 1:
                         browseCatalog();
                         break;
                     case 2:
-                        addItem();
-                        break;
-                    case 3:
                         viewCart();
                         break;
-                    case 4:
-                        checkout();
-                        break;
-                    case 5:
-                        customer = null;
-                        System.out.println("Logged out successfully.");
-                        break;
-                    default:
-                        System.out.println("Invalid choice, please try again.");
-                }
-            } else if (customer != null) {
-                System.out.println("1. Browse items");
-                System.out.println("2. Add item to cart");
-                System.out.println("3. View cart");
-                System.out.println("4. Place order");
-                System.out.println("5. Logout");
-                int choice = Integer.parseInt(scanner.nextLine());
-                switch (choice) {
-                    case 1:
-                        browseCatalog();
-                        break;
-                    case 2:
-                        addItem();
-                        break;
                     case 3:
-                        viewCart();
-                        break;
-                    case 4:
                         checkout();
                         break;
-                    case 5:
+                    case 4:
                         customer = null;
                         System.out.println("Logged out successfully.");
                         break;
@@ -118,8 +88,27 @@ public class view {
         }
     }
 
-    private static void registerCustomer() {
+    private static void register() {
         // Prompt user for customer details
+        //choose account type
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose account type:");
+        System.out.println("1. Customer");
+        System.out.println("2. Admin");
+        int choice = Integer.parseInt(scanner.nextLine());
+        switch (choice) {
+            case 1:
+                registerCustomer();
+                break;
+            case 2:
+                registerAdmin();
+                break;
+            default:
+                System.out.println("Invalid choice, please try again.");
+        }
+
+    }
+    public static void registerCustomer(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
@@ -133,40 +122,129 @@ public class view {
         String phoneNumber = scanner.nextLine();
         System.out.print("Enter address: ");
         String address = scanner.nextLine();
-
-        // Create new customer and add to list
         Customer customer = new Customer(dataManager.getNextCustomerId(), firstName, lastName, email, password, phoneNumber, address);
-        if(authentication.register(customer)){
+        if(authentication.registerCustomer(customer)){
             System.out.println("Customer account created successfully.");}
         else{
             System.out.println("Failed to create customer account.");
-                }
-
+        }
+    }
+public static void registerAdmin(){
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter first name: ");
+    String firstName = scanner.nextLine();
+    System.out.print("Enter last name: ");
+    String lastName = scanner.nextLine();
+    System.out.print("Enter email: ");
+    String email = scanner.nextLine();
+    System.out.print("Enter password: ");
+    String password = scanner.nextLine();
+    Admin admin = new Admin(dataManager.getNextAdminId(), firstName, lastName, email, password);
+    if(authentication.registerAdmin(admin)){
+        System.out.println("Admin account created successfully.");}
+    else{
+        System.out.println("Failed to create admin account.");
     }
 
-    private static void loginCustomer() {
+
+
+
+}
+    private static void login() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose account type:");
+        System.out.println("1. Customer");
+        System.out.println("2. Admin");
+        int option = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Enter email: ");
         String email = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
+            switch (option) {
+                case 1:
+                    if (authentication.loginCustomer(email, password)) {
+                        customer = authentication.getCustomer();
+                        System.out.println("Customer account logged in successfully.");
+                    } else {
+                        System.out.println("Failed to log into customer account.");
+                    }
+                    break;
+                case 2:
+                    if (authentication.loginAdmin(email, password)) {
+                        admin = authentication.getAdmin();
+                        System.out.println("Admin account logged in successfully.");
+                    } else {
+                        System.out.println("Failed to log into admin account.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        }
+    public static void browseCatalog(){
+        System.out.println("Catalog:");
+        System.out.println(catalog.toString());
+        if (customer != null) {
+            System.out.println("If you want to add an item to your cart, enter its ID. If not, enter 0.");
+            Scanner scanner = new Scanner(System.in);
+            String id = scanner.nextLine();
+            if (id.equals("0")) {
+                return;
+            }
+            catalog.searchItemById(id);
+            addItemToCart(id);
+        }
 
-        if(authentication.login(email,password)){
-            System.out.println("Customer account logged in successfully.");
+    }
+    public static void addItemToCart(String id){
+        //get quantity
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter quantity: ");
+        int quantity = scanner.nextInt();
 
-        }else{
-            System.out.println("Failed to log in customer account.");
+        //check if customer has a cart
+        Cart cart = Cart.getCartByCustomer(customer);
+        if (cart == null) {
+            cart = new Cart(customer, new ArrayList<>());
+            customer.setCart(cart);
+        }
+
+        //add item to cart
+        Item item = catalog.searchItemById(id);
+        if (item != null) {
+            OrderItem orderItem = new OrderItem(item, quantity);
+            if (cart.addItemToCart(orderItem)) {
+                System.out.println("Item added to cart successfully.");
+            } else {
+                System.out.println("Failed to add item to cart.");
+            }
+        } else {
+            System.out.println("Item not found.");
         }
     }
-    public static void browseCatalog(){
-        catalog.displayCatalog();
-    }
-    public static void viewCart(){
-        customer.getCart().toString();
+
+    public static void viewCart() {
+        Cart cart = Cart.getCartByCustomer(customer);
+        if (cart == null || cart.getItems().isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+        System.out.println("Items in your cart:");
+        for (OrderItem item : cart.getItems()) {
+            System.out.println(item.getItem().getName() + " x " + item.getQuantity() +
+                    " = " + item.getSubtotal());
+        }
+        System.out.println("Total price: " + cart.getTotal());
     }
     public static void checkout(){
+        Cart cart = Cart.getCartByCustomer(customer);
+        if (cart == null || cart.getItems().isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+        double amount = cart.getTotal();
         //choose payment method
-        double amount = customer.getCart().getTotal();
         Scanner scanner = new Scanner(System.in);
         System.out.println("The amount to be paid is: " + amount + " L.E.");
         System.out.println("Choose payment method:");

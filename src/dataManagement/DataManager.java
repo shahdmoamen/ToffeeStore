@@ -276,7 +276,7 @@ public class DataManager {
     public String getNextCustomerId() {
         int nextCustomerId = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("customers.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader("orders.csv"));
             String line = reader.readLine();
             while (line != null) {
                 String[] data = line.split(",");

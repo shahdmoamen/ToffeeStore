@@ -40,6 +40,5 @@ public void setCart(Cart cart){
     public void setAddress(String address) {
         this.address = address;
     }
-
 }
 

@@ -108,13 +108,12 @@ public class Cart {
         return result;
     }
 
-    public void checkout(Payment payment, Customer customer) {
+    public void checkout(Payment payment, Customer customer,String phone,String shippingAddress){
         DataManager dataManager = new DataManager();
         ArrayList<Order> orders = dataManager.loadOrders();
         ArrayList<Item> items = dataManager.loadItems();
         ArrayList<Cart> carts = dataManager.loadCarts();
         Cart cart = getCartByCustomer(customer);
-
         if (cart.getItems().size() == 0) {
             System.out.println("Cart is empty!");
             return;
@@ -125,38 +124,44 @@ public class Cart {
             return;
         }
 
-        // get the cart total from data manager
-
-        // get customer info
-        String shippingAddress = customer.getAddress();
-        String phone = customer.getPhoneNumber();
         double total = cart.getTotal();
         boolean success = payment.processPayment(total);
 
         if (success) {
-            System.out.println("Payment successful!");
             Order order = new Order(dataManager.getNextOrderId(), customer, total, phone, "pending", shippingAddress, cart.getItems(), payment);
             orders.add(order);
             dataManager.saveOrders(orders);
-            // update item stock quantity
             for (OrderItem orderItem : cart.getItems()) {
                 Item item = orderItem.getItem();
-                int oldStockQuantity = item.getQuantity();
-                int newStockQuantity = oldStockQuantity - orderItem.getQuantity();
-                item.setQuantity(newStockQuantity);
+                for (Item i : items) {
+                    if (i.getName().equals(item.getName())) {
+                        int oldStockQuantity = i.getQuantity();
+                        int newStockQuantity = oldStockQuantity - orderItem.getQuantity();
+                        i.setQuantity(newStockQuantity);
+                        dataManager.saveItems(items);
+                        break;
+                    }
+                }
             }if(cart!=null){
-               // remove the cart
-            carts.remove(cart);
-            dataManager.saveCarts(carts);
-            // update the item
-            dataManager.saveItems(items);}
+                // remove the cart
+                removeFromCarts(cart , carts);
+//                carts.remove(cart);
+                dataManager.saveCarts(carts);
+                }
 
         }
         else {
             System.out.println("Payment failed!");
         }
     }
-
+    public void removeFromCarts(Cart cart , ArrayList<Cart> carts){
+        for(int i = 0 ; i < carts.size() ; i++){
+            if(cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())){
+                carts.remove(i);
+                break;
+            }
+        }
+    }
     public boolean addItemToCart(OrderItem orderItem) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();
@@ -181,7 +186,12 @@ public class Cart {
             OrderItem newItem = new OrderItem(orderItem.getItem(), orderItem.getQuantity());
             cart.getItems().add(newItem);
         }
-
+        for(int i = 0 ; i < carts.size() ; i++){
+            if(cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())){
+                carts.set(i,cart);
+                break;
+            }
+        }
         dataManager.saveCarts(carts);
         return true;
     }
@@ -202,7 +212,6 @@ public class Cart {
         return total;
     }
 
-    //get cart by customer
     public static Cart getCartByCustomer(Customer customer) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();
@@ -214,5 +223,4 @@ public class Cart {
         return null;
     }
 
-    //get customer by cart
 }

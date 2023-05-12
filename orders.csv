@@ -1,8 +1,9 @@
-ORDER,1,19.0,222222,pending,lmo
-CUSTOMER,2,yara,moamen,yaraabdelmoamen@gmail.com,1111,222222,lmo
-ITEM,1,ehiwcwde,cjowejc,20.0,2,1.0,dwcw,edcw,1
-CASH_PAYMENT,19.0,3000.0
-ORDER,2,19.0,222222,pending,lmo
-CUSTOMER,2,yara,moamen,yaraabdelmoamen@gmail.com,1111,222222,lmo
-ITEM,1,ehiwcwde,cjowejc,20.0,2,1.0,dwcw,edcw,1
-CASH_PAYMENT,19.0,300.0
+ORDER,1,279.0,cj,pending,jtd
+CUSTOMER,3,shahd,moamen,shahdmoamem@gmail.com,1111,255,rffgr
+ITEM,1,ehiwcwde,cjowejc,20.0,0,1.0,dwcw,edcw,1
+ITEM,2,cake,chocolate,150.0,19,20.0,exception,cakes,2
+CASH_PAYMENT,279.0,600.0
+ORDER,3,57.0,udt,pending,if
+CUSTOMER,3,shahd,moamen,shahdmoamem@gmail.com,1111,255,rffgr
+ITEM,1,ehiwcwde,cjowejc,20.0,-1,1.0,dwcw,edcw,3
+CASH_PAYMENT,57.0,600.0

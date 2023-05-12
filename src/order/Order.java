@@ -85,30 +85,22 @@ public class Order {
         this.status = "closed";
     }
 
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", items=" + items +
-                ", customer=" +customer.getId() +
-                ", totalPrice=" + totalPrice +
-                ", shippingAddress=" + shippingAddress +
-                ", phone='" + phone + '\'' +
-                ", paymentmethod=" + paymentmethod +
-                ", status='" + status + '\'' +
-                '}';
-    }//get order by id
-    public static Order getOrderById(String id) {
-        DataManager dataManager = new DataManager();
-        ArrayList<Order> orders = dataManager.loadOrders();
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getOrderId().equals(id)) {
-                return orders.get(i);
-
-            }
+    public void printOrder() {
+        System.out.println("Order ID: " + orderId);
+        System.out.println("Customer: " + customer.getFirstName() + " " + customer.getLastName());
+        System.out.println("Total Price: " + totalPrice);
+        System.out.println("Shipping Address: " + shippingAddress);
+        System.out.println("Phone: " + phone);
+        System.out.println("Payment Method: " + paymentmethod);
+        System.out.println("Status: " + status);
+        System.out.println("Items: ");
+        for (OrderItem item : items) {
+            System.out.println("Item ID: " + item.getItem().getId());
+            System.out.println("Item Name: " + item.getItem().getName());
+            System.out.println("Item Price: " + item.getItem().getPrice());
+            System.out.println("Item Quantity: " + item.getQuantity());
         }
-        return null;
+        System.out.println("--------------------------------------------------");
     }
 
 

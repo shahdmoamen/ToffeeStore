@@ -8,8 +8,8 @@ import javax.mail.internet.MimeMessage;
 public class SendOTP {
     public static boolean SendOTP(String email, int code) {
         String host = "smtp.gmail.com";
-        String username = "fcai.toffeeshop@gmail.com";
-        String password = "dfpzbhgihyfxtbjp";
+        String username = "toffeestore.fcai@gmail.com";
+        String password = "wlmhyuqthpimzigk";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

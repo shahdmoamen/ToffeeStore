@@ -46,7 +46,6 @@ public Authentication(ArrayList<Customer> customers){
     SendOTP sendotp=new SendOTP();
         DataManager dataManager = new DataManager();
         ArrayList<Customer> customers = dataManager.loadCustomers();
-        //check if  email is already is in the write format
         if (!customer.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
             System.out.println("Invalid email format");
             return false;

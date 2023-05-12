@@ -129,27 +129,27 @@ public class view {
             System.out.println("Failed to create customer account.");
         }
     }
-public static void registerAdmin(){
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter first name: ");
-    String firstName = scanner.nextLine();
-    System.out.print("Enter last name: ");
-    String lastName = scanner.nextLine();
-    System.out.print("Enter email: ");
-    String email = scanner.nextLine();
-    System.out.print("Enter password: ");
-    String password = scanner.nextLine();
-    Admin admin = new Admin(dataManager.getNextAdminId(), firstName, lastName, email, password);
-    if(authentication.registerAdmin(admin)){
-        System.out.println("Admin account created successfully.");}
-    else{
-        System.out.println("Failed to create admin account.");
+    public static void registerAdmin(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter first name: ");
+        String firstName = scanner.nextLine();
+        System.out.print("Enter last name: ");
+        String lastName = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+        Admin admin = new Admin(dataManager.getNextAdminId(), firstName, lastName, email, password);
+        if(authentication.registerAdmin(admin)){
+            System.out.println("Admin account created successfully.");}
+        else{
+            System.out.println("Failed to create admin account.");
+        }
+
+
+
+
     }
-
-
-
-
-}
     private static void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose account type:");
@@ -161,27 +161,27 @@ public static void registerAdmin(){
         String email = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-            switch (option) {
-                case 1:
-                    if (authentication.loginCustomer(email, password)) {
-                        customer = authentication.getCustomer();
-                        System.out.println("Customer account logged in successfully.");
-                    } else {
-                        System.out.println("Failed to log into customer account.");
-                    }
-                    break;
-                case 2:
-                    if (authentication.loginAdmin(email, password)) {
-                        admin = authentication.getAdmin();
-                        System.out.println("Admin account logged in successfully.");
-                    } else {
-                        System.out.println("Failed to log into admin account.");
-                    }
-                    break;
-                default:
-                    System.out.println("Invalid choice, please try again.");
-            }
+        switch (option) {
+            case 1:
+                if (authentication.loginCustomer(email, password)) {
+                    customer = authentication.getCustomer();
+                    System.out.println("Customer account logged in successfully.");
+                } else {
+                    System.out.println("Failed to log into customer account.");
+                }
+                break;
+            case 2:
+                if (authentication.loginAdmin(email, password)) {
+                    admin = authentication.getAdmin();
+                    System.out.println("Admin account logged in successfully.");
+                } else {
+                    System.out.println("Failed to log into admin account.");
+                }
+                break;
+            default:
+                System.out.println("Invalid choice, please try again.");
         }
+    }
     public static void browseCatalog(){
         System.out.println("Catalog:");
         System.out.println(catalog.toString());
@@ -209,7 +209,6 @@ public static void registerAdmin(){
             cart = new Cart(customer, new ArrayList<>());
             customer.setCart(cart);
         }
-
         //add item to cart
         Item item = catalog.searchItemById(id);
         if (item != null) {
@@ -248,8 +247,6 @@ public static void registerAdmin(){
             System.out.println("Your cart is empty.");
             return;
         }
-
-        // Choose payment method
         Scanner scanner = new Scanner(System.in);
         double amount = cart.getTotal();
         System.out.println("The amount to be paid is: " + amount + " L.E.");
@@ -258,15 +255,25 @@ public static void registerAdmin(){
         System.out.println("2. Credit Card");
         System.out.println("3. Debit Card");
         int option = scanner.nextInt();
+scanner.nextLine();
 
         switch (option) {
             case 1:
-                System.out.println("Enter amount of cash: ");
-                double cash = scanner.nextDouble();
-                Payment p = new CashPayment(amount, cash);
-                cart.checkout(p, customer);
+                SendOTP sendotp = new SendOTP();
+                if (sendotp.sendVerificationCode(customer)){
+                    System.out.println("Enter address: ");
+                    String address = scanner.nextLine();
+                    System.out.println("Enter phoneNumber: ");
+                    String number = scanner.nextLine();
+                    System.out.println("Delivery man will call you on " + number);
+                    System.out.println("Enter amount of cash: ");
+                    double cash = scanner.nextDouble();
+                    Payment p = new CashPayment(amount, cash);
+                    cart.checkout(p, customer,number,address);
+                    }else {
+                        System.out.println("Failed to send OTP");
+                    }
                 break;
-
             case 2:
                 System.out.println("Enter visa number: ");
                 String visaNumber = scanner.nextLine();
@@ -275,7 +282,7 @@ public static void registerAdmin(){
                 System.out.println("Enter cvv: ");
                 String cvv = scanner.nextLine();
                 Payment p1 = new VisaPayment(amount, visaNumber, expiryDate, cvv);
-                cart.checkout(p1, customer);
+                cart.checkout(p1, customer,customer.getPhoneNumber(),customer.getAddress());
                 break;
 
             case 3:
@@ -284,7 +291,7 @@ public static void registerAdmin(){
                 System.out.println("Enter password: ");
                 String password = scanner.nextLine();
                 Payment p2 = new EWalletPayment(amount, eWalletNumber, password);
-                cart.checkout(p2, customer);
+                cart.checkout(p2, customer,customer.getPhoneNumber(),customer.getAddress());
                 break;
 
             default:
@@ -316,15 +323,29 @@ public static void registerAdmin(){
         catalog.addItemToCatalog(item);
     }
     public static void closeOrder(){
+        DataManager dataManager = new DataManager();
+        ArrayList<Order> orders = dataManager.loadOrders();
         Scanner scanner = new Scanner(System.in);
+        for (Order order: orders){
+            order.printOrder();
+            System.out.println(orders.size());
+        }
         System.out.println("Enter order id: ");
         String id = scanner.nextLine();
-        Order order = Order.getOrderById(id);
-        if (order == null) {
-            System.out.println("Order not found.");
-            return;
-        }else {
-            order.closeOrder();
+            for (Order o : orders) {
+                if (o.getOrderId().equals(id)) {
+                    if(o.getStatus().equals("Closed")){
+                        System.out.println("Order is already closed.");
+                        return;
+                    }
+                    o.closeOrder();
+                    dataManager.saveOrders(orders);
+                    System.out.println("Order closed successfully.");
+                    return;
+                }else {
+                    System.out.println("Order not found.");
+            }
+
         }
     }
 }

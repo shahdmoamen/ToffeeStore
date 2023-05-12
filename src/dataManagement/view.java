@@ -237,31 +237,37 @@ public static void registerAdmin(){
         }
         System.out.println("Total price: " + cart.getTotal());
     }
-    public static void checkout(){
+    public static void checkout() {
+        // Get the Customer object from somewhere
+
+        // Get the Cart object associated with the Customer object
         Cart cart = Cart.getCartByCustomer(customer);
+
+        // Check if the Cart object is null or empty
         if (cart == null || cart.getItems().isEmpty()) {
             System.out.println("Your cart is empty.");
             return;
         }
-        double amount = cart.getTotal();
-        //choose payment method
+
+        // Choose payment method
         Scanner scanner = new Scanner(System.in);
+        double amount = cart.getTotal();
         System.out.println("The amount to be paid is: " + amount + " L.E.");
         System.out.println("Choose payment method:");
         System.out.println("1. Cash");
         System.out.println("2. Credit Card");
         System.out.println("3. Debit Card");
         int option = scanner.nextInt();
+
         switch (option) {
             case 1:
-                //get cash prompt
                 System.out.println("Enter amount of cash: ");
                 double cash = scanner.nextDouble();
                 Payment p = new CashPayment(amount, cash);
-                customer.getCart().checkout(p);
+                cart.checkout(p, customer);
                 break;
+
             case 2:
-                //get visa prompt
                 System.out.println("Enter visa number: ");
                 String visaNumber = scanner.nextLine();
                 System.out.println("Enter expiry date: ");
@@ -269,23 +275,24 @@ public static void registerAdmin(){
                 System.out.println("Enter cvv: ");
                 String cvv = scanner.nextLine();
                 Payment p1 = new VisaPayment(amount, visaNumber, expiryDate, cvv);
-                customer.getCart().checkout(p1);
+                cart.checkout(p1, customer);
                 break;
+
             case 3:
-                //get eWallet prompt
                 System.out.println("Enter eWallet number: ");
                 String eWalletNumber = scanner.nextLine();
                 System.out.println("Enter password: ");
                 String password = scanner.nextLine();
                 Payment p2 = new EWalletPayment(amount, eWalletNumber, password);
-                customer.getCart().checkout(p2);
+                cart.checkout(p2, customer);
                 break;
+
             default:
                 System.out.println("Invalid option.");
                 break;
         }
-
     }
+
     public static void addItem(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter item name: ");
@@ -311,8 +318,13 @@ public static void registerAdmin(){
     public static void closeOrder(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter order id: ");
-        int id = scanner.nextInt();
-        Order order = customer.getOrders().get(id);
-        order.closeOrder();
+        String id = scanner.nextLine();
+        Order order = Order.getOrderById(id);
+        if (order == null) {
+            System.out.println("Order not found.");
+            return;
+        }else {
+            order.closeOrder();
+        }
     }
 }

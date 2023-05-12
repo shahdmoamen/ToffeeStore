@@ -12,14 +12,15 @@ public class Cart {
     private double totalPrice;
     private Customer customer;
 
-    public Cart(Customer customer, ArrayList<OrderItem> cartItems ) {
+    public Cart(Customer customer, ArrayList<OrderItem> cartItems) {
         this.cartItems = cartItems;
         this.customer = customer;
-        totalDiscount= calculateTotalDiscount();
+        totalDiscount = calculateTotalDiscount();
         totalPrice = calculateTotalPrice();
     }
+
     public Cart(Customer customer, ArrayList<OrderItem> cartItems, double totalDiscount, double totalPrice) {
-this.cartItems = cartItems;
+        this.cartItems = cartItems;
         this.customer = customer;
         this.totalDiscount = totalDiscount;
         this.totalPrice = totalPrice;
@@ -28,11 +29,12 @@ this.cartItems = cartItems;
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
     public Customer getCustomer() {
         return customer;
     }
 
-    public void addItem(Item item ,int quantity, Customer customer) {
+    public void addItem(Item item, int quantity, Customer customer) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();
         for (Cart c : carts) {
@@ -51,8 +53,7 @@ this.cartItems = cartItems;
                 // the  cart to the carts arraylist
                 carts.set(carts.indexOf(c), c);
                 dataManager.saveCarts(carts);
-            }
-            else {
+            } else {
                 ArrayList<OrderItem> OrderItems = new ArrayList<>();
                 OrderItems.add(new OrderItem(item, 1));
                 carts.add(new Cart(customer, OrderItems));
@@ -100,49 +101,62 @@ this.cartItems = cartItems;
     public String toString() {
         String result = "";
         for (OrderItem item : cartItems) {
-            result += item.getItem().getName()+" "+ item.getQuantity()+" "+item.getSubtotal() + "\n";
+            result += item.getItem().getName() + " " + item.getQuantity() + " " + item.getSubtotal() + "\n";
         }
         result += "Total Discount: " + totalDiscount + "\n";
         result += "Total Price: " + totalPrice + "\n";
         return result;
     }
-    public void checkout(Payment payment) {
+
+    public void checkout(Payment payment, Customer customer) {
         DataManager dataManager = new DataManager();
-        ArrayList<Order>orders = dataManager.loadOrders();
-        ArrayList<Item>items= dataManager.loadItems();
-        ArrayList<Customer>customers = dataManager.loadCustomers();
+        ArrayList<Order> orders = dataManager.loadOrders();
+        ArrayList<Item> items = dataManager.loadItems();
+        ArrayList<Cart> carts = dataManager.loadCarts();
+        Cart cart = getCartByCustomer(customer);
 
-
-        if (items.size() == 0) {
+        if (cart.getItems().size() == 0) {
             System.out.println("Cart is empty!");
             return;
         }
+
         if (payment == null) {
             System.out.println("Payment method not set!");
             return;
         }
-        double total = getTotal();
+
+        // get the cart total from data manager
+
         // get customer info
         String shippingAddress = customer.getAddress();
         String phone = customer.getPhoneNumber();
-        boolean success = payment.processPayment(total) ;
+        double total = cart.getTotal();
+        boolean success = payment.processPayment(total);
 
         if (success) {
             System.out.println("Payment successful!");
-            Order order = new Order(dataManager.getNextOrderId(), customer.getId(), total,phone,"pending", shippingAddress,cartItems, payment);
+            Order order = new Order(dataManager.getNextOrderId(), customer, total, phone, "pending", shippingAddress, cart.getItems(), payment);
             orders.add(order);
             dataManager.saveOrders(orders);
             // update item stock quantity
-            for (OrderItem orderItem : cartItems) {
-                items.remove(orderItem);
+            for (OrderItem orderItem : cart.getItems()) {
+                Item item = orderItem.getItem();
+                int oldStockQuantity = item.getQuantity();
+                int newStockQuantity = oldStockQuantity - orderItem.getQuantity();
+                item.setQuantity(newStockQuantity);
+            }if(cart!=null){
+               // remove the cart
+            carts.remove(cart);
+            dataManager.saveCarts(carts);
+            // update the item
+            dataManager.saveItems(items);}
 
-            }
-            dataManager.saveItems(items);
-            items.clear();
-        } else {
+        }
+        else {
             System.out.println("Payment failed!");
         }
     }
+
     public boolean addItemToCart(OrderItem orderItem) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();
@@ -179,6 +193,7 @@ this.cartItems = cartItems;
         }
         return total;
     }
+
     public double calculateTotalPrice() {
         double total = 0;
         for (OrderItem item : cartItems) {
@@ -186,6 +201,7 @@ this.cartItems = cartItems;
         }
         return total;
     }
+
     //get cart by customer
     public static Cart getCartByCustomer(Customer customer) {
         DataManager dataManager = new DataManager();
@@ -198,7 +214,5 @@ this.cartItems = cartItems;
         return null;
     }
 
-
+    //get customer by cart
 }
-
-

@@ -40,19 +40,19 @@ public class DataManager {
     public void saveOrders(ArrayList<Order> orders) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ORDERS_FILE))) {
             for (Order order : orders) {
-                // ORDER,orderid,customerid,totalprice,phone,status,address,items,payement
-                writer.println( "ORDER," +order.getOrderId() + "," + order.getCustomerId() + "," + order.getTotalPrice() + "," + order.getPhone() + "," + order.getStatus() + "," + order.getShippingAddress());
+                writer.println("ORDER," + order.getOrderId() + "," + order.getTotalPrice() + "," + order.getPhone() + "," + order.getStatus() + "," + order.getShippingAddress());
+                writer.println("CUSTOMER," + order.getCustomer().getId() + "," + order.getCustomer().getFirstName() + "," + order.getCustomer().getLastName() + "," + order.getCustomer().getEmail() + "," + order.getCustomer().getPassword() + "," + order.getCustomer().getPhoneNumber() + "," + order.getCustomer().getAddress());
                 for (OrderItem item : order.getItems()) {
                     //ITEM,itemid,itemname,description,price,itemstockquantity,discount,brand,categoryquantitybought
                     writer.println("ITEM," + item.getItem().getId() + "," + item.getItem().getName()+ "," + item.getItem().getDescription()+ ","  + item.getItem().getPrice() + ","+ item.getItem().getQuantity()+ "," + item.getItem().getDiscount()+ "," + item.getItem().getBrand()+ "," + item.getItem().getCategory()+ ","  + item.getQuantity());
                 }
 
                     if (order.getPaymentmethod()instanceof VisaPayment) {
-                        writer.println("VISA_PAYMENT," + order.getPaymentmethod().getAmount() + "," + ((VisaPayment) order.getPaymentmethod()).getCardNumber() + "," + ((VisaPayment) order.getPaymentmethod()).getExpirationDate());
+                        writer.println("VISA_PAYMENT," + order.getPaymentmethod().getAmount() + "," + ((VisaPayment) order.getPaymentmethod()).getCardNumber() + "," + ((VisaPayment) order.getPaymentmethod()).getExpirationDate()+ "," + ((VisaPayment) order.getPaymentmethod()).getCvv());
                     } else if (order.getPaymentmethod() instanceof CashPayment) {
                         writer.println("CASH_PAYMENT," + order.getPaymentmethod().getAmount() + "," + ((CashPayment) order.getPaymentmethod()).getCashTendered());
                     } else if (order.getPaymentmethod() instanceof EWalletPayment) {
-                        writer.println("EWALLET_PAYMENT," + order.getPaymentmethod().getAmount() + "," + ((EWalletPayment) order.getPaymentmethod()).getEWalletId());
+                        writer.println("EWALLET_PAYMENT," + order.getPaymentmethod().getAmount() + "," + ((EWalletPayment) order.getPaymentmethod()).getEWalletId()+ "," + ((EWalletPayment) order.getPaymentmethod()).getEWalletPassword());
                     }
                 }
         } catch (IOException e) {
@@ -127,65 +127,74 @@ public class DataManager {
             e.printStackTrace();
         }return admins;
     }
+
     public ArrayList<Order> loadOrders() {
         ArrayList<Order> orders = new ArrayList<>();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE))) {
-            String line = reader.readLine();
-            while (line != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                // ORDER,orderid,customerid,totalprice,phone,status,address,items,payement
                 if (parts[0].equals("ORDER")) {
                     String orderId = parts[1];
-                    String customerId = parts[2];
-                    double totalPrice = Double.parseDouble(parts[3]);
-                    Payment paymentmethod = null;
-                    String phone = parts[5];
-                    String status = parts[6];
-                    String shippingAddress = parts[7];
+                    double totalPrice = Double.parseDouble(parts[2]);
+                    String phone = parts[3];
+                    String status = parts[4];
+                    String address = parts[5];
+                    Customer customer = null;
                     ArrayList<OrderItem> items = new ArrayList<>();
-                    while ((line = reader.readLine()) != null && !line.equals("END_ORDER")) {
+                    Payment paymentMethod = null;
+                    while ((line = reader.readLine()) != null) {
                         parts = line.split(",");
-                        if (parts[0].equals("ITEM")) {
-                            //"ITEM',itemid,itemname,description,price,itemstockquantity,discount,brand,category
+                        if (parts[0].equals("CUSTOMER")) {
+                            String customerId = parts[1];
+                            String firstName = parts[2];
+                            String lastName = parts[3];
+                            String email = parts[4];
+                            String password = parts[5];
+                            String phoneNumber = parts[6];
+                            String customerAddress = parts[7];
+                            customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, customerAddress);
+                        } else if (parts[0].equals("ITEM")) {
                             String itemId = parts[1];
                             String itemName = parts[2];
-                            String description = parts[3];
-                            double price = Double.parseDouble(parts[4]);
-                            int stockQuantity= Integer.parseInt(parts[5]);
-                            double discount = Double.parseDouble(parts[6]);
-                            String brand = parts[7];
+                            String itemDescription = parts[3];
+                            double itemPrice = Double.parseDouble(parts[4]);
+                            int itemQuantity = Integer.parseInt(parts[5]);
+                            double itemDiscount = Double.parseDouble(parts[6]);
+                            String itemBrand = parts[7];
                             String category = parts[8];
-                            int quantity=Integer.parseInt(parts[9]);
-                            Item item = new Item(itemId, itemName, description, price,stockQuantity,discount,brand,category);
-                            items.add(new OrderItem(item, quantity));
-
-                            items.add(new OrderItem(item, quantity));
+                            int quantityBought = Integer.parseInt(parts[9]);
+                            Item item = new Item(itemId, itemName, itemDescription, itemPrice, itemQuantity, itemDiscount, itemBrand, category);
+                            items.add(new OrderItem(item, quantityBought));
                         } else if (parts[0].equals("VISA_PAYMENT")) {
                             double amount = Double.parseDouble(parts[1]);
                             String cardNumber = parts[2];
                             String expirationDate = parts[3];
-                            String cvv=parts[4];
-                            paymentmethod = new VisaPayment(amount, cardNumber, expirationDate,cvv);
+                            String cvv = parts[4];
+
+                            paymentMethod = new VisaPayment(amount, cardNumber, expirationDate,cvv);
                         } else if (parts[0].equals("CASH_PAYMENT")) {
                             double amount = Double.parseDouble(parts[1]);
                             double cashTendered = Double.parseDouble(parts[2]);
-                            paymentmethod = new CashPayment(amount, cashTendered);
+                            paymentMethod = new CashPayment(amount, cashTendered);
                         } else if (parts[0].equals("EWALLET_PAYMENT")) {
                             double amount = Double.parseDouble(parts[1]);
                             String eWalletId = parts[2];
-                            String eWalletPassword= parts[3];
-                            paymentmethod = new EWalletPayment(amount, eWalletId,eWalletPassword);
+                            String eWalletPassword = parts[3];
+                            paymentMethod = new EWalletPayment(amount, eWalletId, eWalletPassword);
+                        } else {
+                            break;
                         }
-
-                        orders.add(new Order(orderId, customerId, totalPrice, phone,status, shippingAddress, items,paymentmethod));
+                    }
+                    orders.add(new Order(orderId, customer,totalPrice, phone, status, address, items, paymentMethod));
                 }
             }
-            }} catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return orders;
     }
+
     public ArrayList<Item> loadItems() {
         ArrayList<Item>items = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(ITEMS_FILE))) {
@@ -215,10 +224,8 @@ public class DataManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(CARTS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.startsWith("CUSTOMER")) {
-                    // Create a new orderItems list for each customer
-                    ArrayList<OrderItem> orderItems = new ArrayList<>();
 
+                if (line.startsWith("CUSTOMER")) {
                     // Parse customer info
                     String[] customerInfo = line.split(",");
                     String customerId = customerInfo[1];
@@ -230,8 +237,8 @@ public class DataManager {
                     String address = customerInfo[7];
                     Customer customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, address);
 
-                    double totalDiscount = 0.0;
-                    double totalPrice = 0.0;
+                    // Create a new orderItems list
+                    ArrayList<OrderItem> orderItems = new ArrayList<>();
 
                     // Read the next line
                     line = reader.readLine();
@@ -252,16 +259,12 @@ public class DataManager {
                         OrderItem orderItem = new OrderItem(item, quantity);
                         orderItems.add(orderItem);
 
-                        totalPrice += (price-discount) * quantity;
-
-                        totalDiscount += discount * quantity;
-
                         // Read the next line
                         line = reader.readLine();
                     }
 
                     // Create a new cart for the current customer
-                    Cart cart = new Cart(customer, orderItems, totalDiscount, totalPrice);
+                    Cart cart = new Cart(customer, orderItems);
                     carts.add(cart);
                 }
             }
@@ -271,16 +274,20 @@ public class DataManager {
 
         return carts;
     }
+
     public String getNextOrderId() {
         int nextOrderId = 0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader("orders.csv"));
             String line = reader.readLine();
             while (line != null) {
-                String[] data = line.split(",");
-                int orderId = Integer.parseInt(data[0]);
-                if (orderId > nextOrderId) {
-                    nextOrderId = orderId;
+                //if the line starts with ORDER, then it is an order
+                if (line.startsWith("ORDER")) {
+                    String[] data = line.split(",");
+                    int orderId = Integer.parseInt(data[1]);
+                    if (orderId > nextOrderId) {
+                        nextOrderId = orderId;
+                    }
                 }
                 line = reader.readLine();
             }

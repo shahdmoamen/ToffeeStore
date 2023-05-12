@@ -1,11 +1,13 @@
 
 package order;
 import java.util.ArrayList;
+
+import dataManagement.DataManager;
 import users.*;
 public class Order {
     private String orderId;
     private ArrayList<OrderItem> items;
-    private String customerId;
+    private Customer customer; ;
     private double totalPrice;
     private String shippingAddress;
     private String phone;
@@ -13,10 +15,10 @@ public class Order {
     private String status;
     // ORDER,orderid,customerid,totalprice,phone,status,address,items,payement
 
-    public Order(String orderId,String customerId, double totalPrice , String phone, String status, String shippingAddress, ArrayList<OrderItem> items, Payment paymentmethod)  {
+    public Order(String orderId,Customer customer, double totalPrice , String phone, String status, String shippingAddress, ArrayList<OrderItem> items, Payment paymentmethod)  {
         this.orderId = orderId;
         this.items = items;
-        this.customerId = customerId;
+        this.customer = customer;
         this.totalPrice = totalPrice;
         this.shippingAddress = shippingAddress;
         this.phone = phone;
@@ -32,8 +34,8 @@ public class Order {
         return items;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public double getTotalPrice() {
@@ -48,8 +50,8 @@ public class Order {
         this.items = items;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customerId) {
+        this.customer = customerId;
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -89,30 +91,28 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", items=" + items +
-                ", customer=" + customerId +
+                ", customer=" +customer.getId() +
                 ", totalPrice=" + totalPrice +
                 ", shippingAddress=" + shippingAddress +
                 ", phone='" + phone + '\'' +
                 ", paymentmethod=" + paymentmethod +
                 ", status='" + status + '\'' +
                 '}';
-    }
-    //display orders
-    public void viewAllOrders(ArrayList<Order> orders) {
+    }//get order by id
+    public static Order getOrderById(String id) {
+        DataManager dataManager = new DataManager();
+        ArrayList<Order> orders = dataManager.loadOrders();
         for (int i = 0; i < orders.size(); i++) {
-            System.out.println(orders.get(i).toString());
-        }
-    }
-    //reOrder a specific order in orders of the user
-//    public void reOrder(ArrayList<Order> orders, int orderId) {
-//        for (int i = 0; i < orders.size(); i++) {
-//            if (orders.get(i).getOrderId() == orderId) {
-//                System.out.println(orders.get(i).toString());
-//            }
-//        }
-//    }
-}
+            if (orders.get(i).getOrderId().equals(id)) {
+                return orders.get(i);
 
+            }
+        }
+        return null;
+    }
+
+
+    }
 
 
 

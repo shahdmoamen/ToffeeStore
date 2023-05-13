@@ -15,4 +15,5 @@ public abstract class Payment {
         }
 
         public abstract boolean processPayment(double amount);
+        public abstract String getPaymentDetails();
     }

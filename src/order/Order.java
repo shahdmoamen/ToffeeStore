@@ -91,7 +91,7 @@ public class Order {
         System.out.println("Total Price: " + totalPrice);
         System.out.println("Shipping Address: " + shippingAddress);
         System.out.println("Phone: " + phone);
-        System.out.println("Payment Method: " + paymentmethod);
+        System.out.println("Payment Method: " +paymentmethod.getPaymentDetails());
         System.out.println("Status: " + status);
         System.out.println("Items: ");
         for (OrderItem item : items) {

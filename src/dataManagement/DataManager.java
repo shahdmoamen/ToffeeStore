@@ -105,7 +105,8 @@ public class DataManager {
                 customers.add(customer);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading customers");
+            return null;
         }return customers;
     }
     public ArrayList<Admin> loadAdmins() {
@@ -124,17 +125,23 @@ public class DataManager {
                 admins.add(admin);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading admins");
+            return null;
         }return admins;
     }
 
     public ArrayList<Order> loadOrders() {
         ArrayList<Order> orders = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE))) {
             String line;
+            boolean newOrder = true;
+            Order order = null;
+
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts[0].equals("ORDER")) {
+
+                if (newOrder && parts[0].equals("ORDER")) {
                     String orderId = parts[1];
                     double totalPrice = Double.parseDouble(parts[2]);
                     String phone = parts[3];
@@ -143,8 +150,10 @@ public class DataManager {
                     Customer customer = null;
                     ArrayList<OrderItem> items = new ArrayList<>();
                     Payment paymentMethod = null;
+
                     while ((line = reader.readLine()) != null) {
                         parts = line.split(",");
+
                         if (parts[0].equals("CUSTOMER")) {
                             String customerId = parts[1];
                             String firstName = parts[2];
@@ -171,7 +180,6 @@ public class DataManager {
                             String cardNumber = parts[2];
                             String expirationDate = parts[3];
                             String cvv = parts[4];
-
                             paymentMethod = new VisaPayment(amount, cardNumber, expirationDate,cvv);
                         } else if (parts[0].equals("CASH_PAYMENT")) {
                             double amount = Double.parseDouble(parts[1]);
@@ -182,6 +190,7 @@ public class DataManager {
                             String eWalletId = parts[2];
                             String eWalletPassword = parts[3];
                             paymentMethod = new EWalletPayment(amount, eWalletId, eWalletPassword);
+
                         } else {
                             break;
                         }
@@ -190,7 +199,8 @@ public class DataManager {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading orders");
+            return null;
         }
         return orders;
     }
@@ -215,7 +225,8 @@ public class DataManager {
                     items.add(item);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading items");
+            return null;
         }return items;
     }
     public ArrayList<Cart> loadCarts() {
@@ -269,7 +280,8 @@ public class DataManager {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error loading carts");
+            return null;
         }
 
         return carts;
@@ -293,8 +305,8 @@ public class DataManager {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+            System.out.println("Failed to generate order ID");
+            return null;}
         return Integer.toString(nextOrderId+1);
     }
 
@@ -314,7 +326,8 @@ public class DataManager {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to generate customer ID");
+            return null;
         }
         return Integer.toString(nextCustomerId+1);
     }
@@ -333,7 +346,8 @@ public class DataManager {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to generate admin ID");
+            return null;
         }
         return Integer.toString(nextAdminId+1);
     }
@@ -352,7 +366,9 @@ public class DataManager {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to generate item ID");
+            return null;
+
         }
         return Integer.toString(nextItemId+1);
     }

@@ -16,6 +16,10 @@ public class CashPayment extends Payment {
     public void setCashTendered(double cashTendered) {
         this.cashTendered = cashTendered;
     }
+    @Override
+    public String getPaymentDetails() {
+        return "Payment of " + this.amount + " made in cash.";
+    }
 
     @Override
     public boolean processPayment(double amount){

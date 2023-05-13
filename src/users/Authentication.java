@@ -46,15 +46,29 @@ public Authentication(ArrayList<Customer> customers){
     SendOTP sendotp=new SendOTP();
         DataManager dataManager = new DataManager();
         ArrayList<Customer> customers = dataManager.loadCustomers();
+        ArrayList<Admin> admins = dataManager.loadAdmins();
         if (!customer.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
             System.out.println("Invalid email format");
             return false;
         }
+        //regex for phone number
+        if (!customer.getPhoneNumber().matches("^01[0125][0-9]{8}$")) {
+            System.out.println("Invalid phone number");
+            return false;
+        }
         for (Customer c : customers) {
             if (c.getEmail().equals(customer.getEmail())) {
+                System.out.println("Email already exists");
                 return false;
             }
-        }if(!sendotp.sendVerificationCode(customer)){
+        }
+        for (Admin a : admins) {
+            if ((a.getEmail().equals(admin.getEmail()))) {
+                System.out.println("Email already exists");
+                return false;
+            }
+        }
+            if(!sendotp.sendVerificationCode(customer)){
             return false;
         }
         customers.add(customer);
@@ -65,14 +79,25 @@ public Authentication(ArrayList<Customer> customers){
         SendOTP sendotp=new SendOTP();
         DataManager dataManager = new DataManager();
         ArrayList<Admin> admins = dataManager.loadAdmins();
-        //check if  email is already is in the write format
+        ArrayList<Customer> customers = dataManager.loadCustomers();
         if (!admin.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
             System.out.println("Invalid email format");
             return false;
         }
+        if (!customer.getPhoneNumber().matches("^^01[0125][0-9]{8}$")) {
+            System.out.println("Invalid phone number");
+            return false;
+        }
         for (Admin a : admins) {
-            if (a.getEmail().equals(admin.getEmail())) {
+            if ((a.getEmail().equals(admin.getEmail()))) {
+                System.out.println("Email already exists");
                 return false;
+            }
+            for (Customer c : customers) {
+                if (c.getEmail().equals(admin.getEmail())) {
+                    System.out.println("Email already exists");
+                    return false;
+                }
             }
         }if(!sendotp.sendVerificationCode(admin)){
             return false;

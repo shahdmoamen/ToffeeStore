@@ -1,9 +1,9 @@
-ORDER,1,279.0,cj,pending,jtd
-CUSTOMER,3,shahd,moamen,shahdmoamem@gmail.com,1111,255,rffgr
-ITEM,1,ehiwcwde,cjowejc,20.0,0,1.0,dwcw,edcw,1
-ITEM,2,cake,chocolate,150.0,19,20.0,exception,cakes,2
-CASH_PAYMENT,279.0,600.0
-ORDER,3,57.0,udt,pending,if
-CUSTOMER,3,shahd,moamen,shahdmoamem@gmail.com,1111,255,rffgr
-ITEM,1,ehiwcwde,cjowejc,20.0,-1,1.0,dwcw,edcw,3
-CASH_PAYMENT,57.0,600.0
+ORDER,1,960.0,01147216652,pending,210D
+CUSTOMER,1,shahd,moamen,shahdmoamem@gmail.com,1111,01140525225,gardenia
+ITEM,1,cake,choclate cake,300.0,3,30.0,mongini,cakes,3
+ITEM,3,basbosa,basbosa with mixed nuts,90.0,6,15.0,exception,oriental desserts,2
+CASH_PAYMENT,960.0,1000.0
+ORDER,3,1350.0,ovfdg,pending,ffger
+CUSTOMER,2,shahdsinger03@gmail.com,singer,shahdsinger03@gmail.com,1111,01140525225,ggg
+ITEM,1,cake,choclate cake,300.0,6,30.0,mongini,cakes,5
+CASH_PAYMENT,1350.0,3000.0

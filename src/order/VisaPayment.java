@@ -36,6 +36,10 @@ public class VisaPayment extends Payment {
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
+    @Override
+    public String getPaymentDetails() {
+        return "Payment of " + this.amount + " made from Visa card " + this.cardNumber + ".";
+    }
 
     @Override
     public boolean processPayment(double amount){

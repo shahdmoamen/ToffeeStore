@@ -25,6 +25,10 @@ public class EWalletPayment extends Payment {
     public void setEWalletPassword(String eWalletPassword) {
         this.eWalletPassword = eWalletPassword;
     }
+    @Override
+    public String getPaymentDetails() {
+        return "Payment of " + this.amount + " made from e-wallet account " + this.eWalletId + ".";
+    }
 
     @Override
     public boolean processPayment(double amount){

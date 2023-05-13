@@ -36,6 +36,7 @@ public class view {
                         browseCatalog();
                         break;
                     case 4:
+                        System.out.println("Goodbye!");
                         System.exit(0);
                     default:
                         System.out.println("Invalid choice, please try again.");
@@ -255,7 +256,7 @@ public class view {
         System.out.println("2. Credit Card");
         System.out.println("3. Debit Card");
         int option = scanner.nextInt();
-scanner.nextLine();
+        scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -265,13 +266,17 @@ scanner.nextLine();
                     String address = scanner.nextLine();
                     System.out.println("Enter phoneNumber: ");
                     String number = scanner.nextLine();
+                    if (!customer.getPhoneNumber().matches("^^01[0125][0-9]{8}$")) {
+                        System.out.println("Invalid phone number");
+                        return;
+                    }
                     System.out.println("Delivery man will call you on " + number);
                     System.out.println("Enter amount of cash: ");
                     double cash = scanner.nextDouble();
                     Payment p = new CashPayment(amount, cash);
                     cart.checkout(p, customer,number,address);
                     }else {
-                        System.out.println("Failed to send OTP");
+                        System.out.println("redirecting to home page");
                     }
                 break;
             case 2:

@@ -34,7 +34,8 @@ public class SendOTP {
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            System.out.println("Failed to send email");
+            return false;
         }
     }
 

@@ -42,10 +42,16 @@ public class Catalog {
     }
     @Override
     public String toString() {
-        String s = "";
+        String result = "ID->NAME->PRICE->DISCOUNT\n";
         for (Item item : items) {
-            s += item.getId()+" "+item.getName() +" Price "+item.getPrice()+" Dicount "+item.getDiscount() +"\n";
-        }return s;
+            result += item.getId()+"->"+item.getName() + "->" + item.getPrice() + "L.E->" + item.getDiscount()+"L.E ";
+            if (item.getQuantity()<2){
+                result += "!!!!Hurry up! Only "+item.getQuantity()+" left in stock!!!!"+"\n";
+            }else {
+                result += "\n";
+            }
+        }
+        return result;
     }
     //search for item by id
     public Item searchItemById(String id) {

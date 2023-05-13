@@ -1,5 +1,6 @@
 package order;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class VisaPayment extends Payment {
     private String cardNumber;
@@ -11,8 +12,9 @@ public class VisaPayment extends Payment {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.cvv = cvv;
+    }public VisaPayment(double amount) {
+        super(amount);
     }
-
     public String getCardNumber() {
         return cardNumber;
     }
@@ -43,20 +45,19 @@ public class VisaPayment extends Payment {
 
     @Override
     public boolean processPayment(double amount){
-            System.out.println("Processing Visa payment...");
             Scanner sc = new Scanner(System.in);
-            System.out.print("Enter the card number: ");
-            String cardNumber = sc.nextLine();
+            System.out.print("Enter the card number--make sure to write the 16 number --: ");
+             cardNumber = sc.nextLine();
             System.out.print("Enter the expiration date (MM/YY): ");
             String expDate = sc.nextLine();
             System.out.print("Enter the CVV code: ");
             int cvv = sc.nextInt();
             sc.nextLine();
-            if (cardNumber.length() != 16) {
+            if ((cardNumber.length() != 16) &&(!Pattern.matches("[0-9]+", cardNumber))) {
                 System.out.println("Invalid card number.");
                 return false;
             }
-            if (expDate.length() != 5) {
+            if (!Pattern.matches("[0-9]{2}/[0-9]{2}", expDate)) {
                 System.out.println("Invalid expiration date.");
                 return false;
             }
@@ -64,12 +65,7 @@ public class VisaPayment extends Payment {
                 System.out.println("Invalid CVV.");
                 return false;
             }
-
-            if (amount > 0) {
-                System.out.printf("Payment of $%.2f successfully processed using Visa card %s.\n", amount, cardNumber);
-            } else {
-                System.out.println("Invalid amount.");
-            }
+            System.out.println("Payment of " + this.amount + " made from Visa card " + this.cardNumber + ".");
             return true;
         }
     }

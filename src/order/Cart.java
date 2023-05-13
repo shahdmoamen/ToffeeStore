@@ -2,7 +2,7 @@ package order;
 import dataManagement.DataManager;
 import users.Address;
 import users.Customer;
-
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -110,9 +110,7 @@ public class Cart {
                     }
                 }
             }if(cart!=null){
-                // remove the cart
                 removeFromCarts(cart , carts);
-//                carts.remove(cart);
                 dataManager.saveCarts(carts);
                 }
 
@@ -142,7 +140,6 @@ public class Cart {
             }
         }
 
-        // Check if the customer has a cart
         Cart cart = Cart.getCartByCustomer(customer);
         if (cart == null) {
             cart = new Cart(customer, new ArrayList<>());
@@ -172,6 +169,7 @@ public class Cart {
         return true;
     }
 
+
     public double calculateTotalDiscount() {
         double total = 0;
         for (OrderItem item : cartItems) {
@@ -179,6 +177,49 @@ public class Cart {
         }
         return total;
     }
+    public boolean removeItemFromCart(Item item, int quantity) {
+        DataManager dataManager = new DataManager();
+        ArrayList<Cart> carts = dataManager.loadCarts();
+
+        Cart cart = Cart.getCartByCustomer(customer);
+        if (cart == null) {
+            System.out.println("No cart found for customer!");
+            return false;
+        }
+
+        boolean foundItem = false;
+        for (OrderItem orderItem : cart.getItems()) {
+            if (orderItem.getItem().equals(item)) {
+                if (orderItem.getQuantity() < quantity) {
+                    System.out.println("Not enough quantity to remove!");
+                    return false;
+                }if(orderItem.getQuantity() == quantity){
+                    cart.getItems().remove(orderItem);
+                    break;
+                }
+                orderItem.setQuantity(orderItem.getQuantity() - quantity);
+                if (orderItem.getQuantity() == 0) {
+                    cart.getItems().remove(orderItem);
+                }
+                foundItem = true;
+                break;
+            }
+        }
+        if (!foundItem) {
+            System.out.println("Item not found in cart!");
+            return false;
+        }
+        for (int i = 0; i < carts.size(); i++) {
+            if (cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())) {
+                carts.set(i, cart);
+                break;
+            }
+        }
+        dataManager.saveCarts(carts);
+        System.out.println(quantity + " " + item.getName() + " removed from cart.");
+        return true;
+    }
+
 
     public double calculateTotalPrice() {
         double total = 0;

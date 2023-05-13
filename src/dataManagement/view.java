@@ -157,14 +157,15 @@ public class view {
         System.out.println("1. Customer");
         System.out.println("2. Admin");
         int option = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter email: ");
-        String email = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+
         switch (option) {
             case 1:
-                if (authentication.loginCustomer(email, password)) {
+                scanner.nextLine();
+                System.out.print("Enter email: ");
+                String customerEmail = scanner.nextLine();
+                System.out.print("Enter password: ");
+                String customerPassword = scanner.nextLine();
+                if (authentication.loginCustomer(customerEmail, customerPassword)) {
                     customer = authentication.getCustomer();
                     System.out.println("Customer account logged in successfully.");
                 } else {
@@ -172,7 +173,12 @@ public class view {
                 }
                 break;
             case 2:
-                if (authentication.loginAdmin(email, password)) {
+                scanner.nextLine();
+                System.out.print("Enter email: ");
+                String adminEmail = scanner.nextLine();
+                System.out.print("Enter password: ");
+                String AdminPassword = scanner.nextLine();
+                if (authentication.loginAdmin(adminEmail, AdminPassword)) {
                     admin = authentication.getAdmin();
                     System.out.println("Admin account logged in successfully.");
                 } else {
@@ -216,11 +222,35 @@ public class view {
             OrderItem orderItem = new OrderItem(item, quantity);
             if (cart.addItemToCart(orderItem)) {
                 System.out.println("Item added to cart successfully.");
+                viewCart();
             } else {
                 System.out.println("Failed to add item to cart.");
             }
         } else {
             System.out.println("Item not found.");
+        }
+    }
+    public static void removeItemFromCart(String name){
+        Scanner scanner = new Scanner(System.in);
+        Cart cart = Cart.getCartByCustomer(customer);
+        if (cart == null) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+        for (OrderItem item : cart.getItems()) {
+            if (item.getItem().getName().equals(name)) {
+                System.out.println("Enter quantity: ");
+                int quantity = scanner.nextInt();
+                if (cart.removeItemFromCart(item.getItem(), quantity)) {
+                    System.out.println("Item removed from cart successfully.");
+                    viewCart();
+                } else {
+                    System.out.println("Failed to remove item from cart.");
+                }
+                return;
+            }else {
+                System.out.println("Item not found.");
+            }
         }
     }
 
@@ -236,6 +266,30 @@ public class view {
                     " = " + item.getSubtotal());
         }
         System.out.println("Total price: " + cart.getTotal());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose an option:");
+        System.out.println("1. Add item");
+        System.out.println("2. Remove item");
+        System.out.println("3. Exit");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        switch (option) {
+            case 1:
+                System.out.println("Enter item ID: ");
+                String id = scanner.nextLine();
+                addItemToCart(id);
+                break;
+            case 2:
+                System.out.println("Enter item ID: ");
+                String itemId = scanner.nextLine();
+                removeItemFromCart(itemId);
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Invalid choice, please try again.");
+        }
+
     }
     public static void checkout() {
         // Get the Customer object from somewhere
@@ -261,15 +315,15 @@ public class view {
         switch (option) {
             case 1:
                 SendOTP sendotp = new SendOTP();
+                System.out.println("Enter address: ");
+                String address = scanner.nextLine();
+                System.out.println("Enter phoneNumber: ");
+                String number = scanner.nextLine();
+                if (!number.matches("^^01[0125][0-9]{8}$")) {
+                    System.out.println("Invalid phone number");
+                    return;
+                }
                 if (sendotp.sendVerificationCode(customer)){
-                    System.out.println("Enter address: ");
-                    String address = scanner.nextLine();
-                    System.out.println("Enter phoneNumber: ");
-                    String number = scanner.nextLine();
-                    if (!customer.getPhoneNumber().matches("^^01[0125][0-9]{8}$")) {
-                        System.out.println("Invalid phone number");
-                        return;
-                    }
                     System.out.println("Delivery man will call you on " + number);
                     System.out.println("Enter amount of cash: ");
                     double cash = scanner.nextDouble();
@@ -280,22 +334,12 @@ public class view {
                     }
                 break;
             case 2:
-                System.out.println("Enter visa number: ");
-                String visaNumber = scanner.nextLine();
-                System.out.println("Enter expiry date: ");
-                String expiryDate = scanner.nextLine();
-                System.out.println("Enter cvv: ");
-                String cvv = scanner.nextLine();
-                Payment p1 = new VisaPayment(amount, visaNumber, expiryDate, cvv);
+                Payment p1 = new VisaPayment(amount);
                 cart.checkout(p1, customer,customer.getPhoneNumber(),customer.getAddress());
                 break;
 
             case 3:
-                System.out.println("Enter eWallet number: ");
-                String eWalletNumber = scanner.nextLine();
-                System.out.println("Enter password: ");
-                String password = scanner.nextLine();
-                Payment p2 = new EWalletPayment(amount, eWalletNumber, password);
+                Payment p2 = new EWalletPayment(amount);
                 cart.checkout(p2, customer,customer.getPhoneNumber(),customer.getAddress());
                 break;
 

@@ -9,7 +9,9 @@ public class EWalletPayment extends Payment {
         this.eWalletId = eWalletId;
         this.eWalletPassword = eWalletPassword;
     }
-
+public EWalletPayment(double amount) {
+        super(amount);
+    }
     public String getEWalletId() {
         return eWalletId;
     }
@@ -36,7 +38,6 @@ public class EWalletPayment extends Payment {
             System.out.println("Error: account ID and password are required for e-wallet payment.");
             return false;
         }
-
         System.out.println("Payment of " + this.amount + " made from e-wallet account " + this.eWalletId + ".");
         return true;
     }

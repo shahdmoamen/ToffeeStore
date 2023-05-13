@@ -1,0 +1,104 @@
+\hypertarget{classorder_1_1_order_item}{}\doxysection{order.\+Order\+Item Class Reference}
+\label{classorder_1_1_order_item}\index{order.OrderItem@{order.OrderItem}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_order_item_a8c31e999819f42433abc6ab96096dbed}{Order\+Item}} (\mbox{\hyperlink{classorder_1_1_item}{Item}} item, int quantity)
+\item 
+\mbox{\hyperlink{classorder_1_1_item}{Item}} \mbox{\hyperlink{classorder_1_1_order_item_abe4e976b6c948aa782ae6cb61ac4c94b}{get\+Item}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_order_item_a8ee3cd9f2d17b5a975813d77d53cfd84}{set\+Item}} (\mbox{\hyperlink{classorder_1_1_item}{Item}} item)
+\item 
+int \mbox{\hyperlink{classorder_1_1_order_item_aeb983fbecde7ebc9173c3307a9ceebeb}{get\+Quantity}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_order_item_a5fa05f0ae2dc27d8a5c0ecc23c9f4477}{set\+Quantity}} (int quantity)
+\item 
+double \mbox{\hyperlink{classorder_1_1_order_item_a814d27b6a22850af69bd8ab0b2f02a88}{get\+Subtotal}} ()
+\item 
+String \mbox{\hyperlink{classorder_1_1_order_item_ae8862e66fbc46d2f7ac0ab51bfa000f7}{to\+String}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an item in an order and the quantity of that item. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classorder_1_1_order_item_a8c31e999819f42433abc6ab96096dbed}\label{classorder_1_1_order_item_a8c31e999819f42433abc6ab96096dbed}} 
+\index{order.OrderItem@{order.OrderItem}!OrderItem@{OrderItem}}
+\index{OrderItem@{OrderItem}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{OrderItem()}{OrderItem()}}
+{\footnotesize\ttfamily order.\+Order\+Item.\+Order\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classorder_1_1_item}{Item}}}]{item,  }\item[{int}]{quantity }\end{DoxyParamCaption})}
+
+Constructs an Order\+Item object with the given item and quantity. 
+\begin{DoxyParams}{Parameters}
+{\em item} & the item to be ordered \\
+\hline
+{\em quantity} & the quantity of the item \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classorder_1_1_order_item_abe4e976b6c948aa782ae6cb61ac4c94b}\label{classorder_1_1_order_item_abe4e976b6c948aa782ae6cb61ac4c94b}} 
+\index{order.OrderItem@{order.OrderItem}!getItem@{getItem}}
+\index{getItem@{getItem}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classorder_1_1_item}{Item}} order.\+Order\+Item.\+get\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the item of this Order\+Item. \begin{DoxyReturn}{Returns}
+the item of this Order\+Item 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_order_item_aeb983fbecde7ebc9173c3307a9ceebeb}\label{classorder_1_1_order_item_aeb983fbecde7ebc9173c3307a9ceebeb}} 
+\index{order.OrderItem@{order.OrderItem}!getQuantity@{getQuantity}}
+\index{getQuantity@{getQuantity}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{getQuantity()}{getQuantity()}}
+{\footnotesize\ttfamily int order.\+Order\+Item.\+get\+Quantity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the quantity of this Order\+Item. \begin{DoxyReturn}{Returns}
+the quantity of this Order\+Item 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_order_item_a814d27b6a22850af69bd8ab0b2f02a88}\label{classorder_1_1_order_item_a814d27b6a22850af69bd8ab0b2f02a88}} 
+\index{order.OrderItem@{order.OrderItem}!getSubtotal@{getSubtotal}}
+\index{getSubtotal@{getSubtotal}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{getSubtotal()}{getSubtotal()}}
+{\footnotesize\ttfamily double order.\+Order\+Item.\+get\+Subtotal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the subtotal of this Order\+Item, which is the price of the item multiplied by the quantity, minus the discount applied to the item multiplied by the quantity. \begin{DoxyReturn}{Returns}
+the subtotal of this Order\+Item 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_order_item_a8ee3cd9f2d17b5a975813d77d53cfd84}\label{classorder_1_1_order_item_a8ee3cd9f2d17b5a975813d77d53cfd84}} 
+\index{order.OrderItem@{order.OrderItem}!setItem@{setItem}}
+\index{setItem@{setItem}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
+{\footnotesize\ttfamily void order.\+Order\+Item.\+set\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classorder_1_1_item}{Item}}}]{item }\end{DoxyParamCaption})}
+
+Sets the item of this Order\+Item. 
+\begin{DoxyParams}{Parameters}
+{\em item} & the item to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_order_item_a5fa05f0ae2dc27d8a5c0ecc23c9f4477}\label{classorder_1_1_order_item_a5fa05f0ae2dc27d8a5c0ecc23c9f4477}} 
+\index{order.OrderItem@{order.OrderItem}!setQuantity@{setQuantity}}
+\index{setQuantity@{setQuantity}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{setQuantity()}{setQuantity()}}
+{\footnotesize\ttfamily void order.\+Order\+Item.\+set\+Quantity (\begin{DoxyParamCaption}\item[{int}]{quantity }\end{DoxyParamCaption})}
+
+Sets the quantity of this Order\+Item. 
+\begin{DoxyParams}{Parameters}
+{\em quantity} & the quantity to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_order_item_ae8862e66fbc46d2f7ac0ab51bfa000f7}\label{classorder_1_1_order_item_ae8862e66fbc46d2f7ac0ab51bfa000f7}} 
+\index{order.OrderItem@{order.OrderItem}!toString@{toString}}
+\index{toString@{toString}!order.OrderItem@{order.OrderItem}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily String order.\+Order\+Item.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a string representation of this Order\+Item. \begin{DoxyReturn}{Returns}
+a string representation of this Order\+Item 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/order/\mbox{\hyperlink{_order_item_8java}{Order\+Item.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,121 @@
+\hypertarget{classorder_1_1_catalog}{}\doxysection{order.\+Catalog Class Reference}
+\label{classorder_1_1_catalog}\index{order.Catalog@{order.Catalog}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_catalog_ac74a92c05622c8dabf9bf18dacdd250b}{Catalog}} (Array\+List$<$ \mbox{\hyperlink{classorder_1_1_item}{Item}} $>$ items)
+\item 
+void \mbox{\hyperlink{classorder_1_1_catalog_ae41272e97c6eaa3a7178a4fc6bafe4d6}{add\+Item\+To\+Catalog}} (\mbox{\hyperlink{classorder_1_1_item}{Item}} item)
+\item 
+void \mbox{\hyperlink{classorder_1_1_catalog_a9743cfde16a71758454b1894f09b5bbe}{remove\+Item}} (\mbox{\hyperlink{classorder_1_1_item}{Item}} item)
+\item 
+Array\+List$<$ \mbox{\hyperlink{classorder_1_1_item}{Item}} $>$ \mbox{\hyperlink{classorder_1_1_catalog_a9fedf1eed6bdc7b53b8723736f90d8d3}{get\+Items}} ()
+\item 
+String \mbox{\hyperlink{classorder_1_1_catalog_a16ac921cf3bf957465dd75a2b7a2ad3e}{to\+String}} ()
+\item 
+\mbox{\hyperlink{classorder_1_1_item}{Item}} \mbox{\hyperlink{classorder_1_1_catalog_ae98f7aa3ff2ed7aaaa444137fda7ed3d}{search\+Item\+By\+Id}} (String id)
+\item 
+\mbox{\hyperlink{classorder_1_1_item}{Item}} \mbox{\hyperlink{classorder_1_1_catalog_aba6d6fe5b8fa2d34168103c0598ef3ff}{search\+Item\+By\+Name}} (String name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classorder_1_1_catalog_ac74a92c05622c8dabf9bf18dacdd250b}\label{classorder_1_1_catalog_ac74a92c05622c8dabf9bf18dacdd250b}} 
+\index{order.Catalog@{order.Catalog}!Catalog@{Catalog}}
+\index{Catalog@{Catalog}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{Catalog()}{Catalog()}}
+{\footnotesize\ttfamily order.\+Catalog.\+Catalog (\begin{DoxyParamCaption}\item[{Array\+List$<$ \mbox{\hyperlink{classorder_1_1_item}{Item}} $>$}]{items }\end{DoxyParamCaption})}
+
+Creates a new Catalog object with the given list of items.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & the list of items to add to the catalog. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classorder_1_1_catalog_ae41272e97c6eaa3a7178a4fc6bafe4d6}\label{classorder_1_1_catalog_ae41272e97c6eaa3a7178a4fc6bafe4d6}} 
+\index{order.Catalog@{order.Catalog}!addItemToCatalog@{addItemToCatalog}}
+\index{addItemToCatalog@{addItemToCatalog}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{addItemToCatalog()}{addItemToCatalog()}}
+{\footnotesize\ttfamily void order.\+Catalog.\+add\+Item\+To\+Catalog (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classorder_1_1_item}{Item}}}]{item }\end{DoxyParamCaption})}
+
+Adds an item to the catalog.
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & the item to add to the catalog. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_catalog_a9fedf1eed6bdc7b53b8723736f90d8d3}\label{classorder_1_1_catalog_a9fedf1eed6bdc7b53b8723736f90d8d3}} 
+\index{order.Catalog@{order.Catalog}!getItems@{getItems}}
+\index{getItems@{getItems}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{getItems()}{getItems()}}
+{\footnotesize\ttfamily Array\+List$<$ \mbox{\hyperlink{classorder_1_1_item}{Item}} $>$ order.\+Catalog.\+get\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the list of all items in the catalog.
+
+\begin{DoxyReturn}{Returns}
+the list of all items in the catalog. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_catalog_a9743cfde16a71758454b1894f09b5bbe}\label{classorder_1_1_catalog_a9743cfde16a71758454b1894f09b5bbe}} 
+\index{order.Catalog@{order.Catalog}!removeItem@{removeItem}}
+\index{removeItem@{removeItem}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{removeItem()}{removeItem()}}
+{\footnotesize\ttfamily void order.\+Catalog.\+remove\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classorder_1_1_item}{Item}}}]{item }\end{DoxyParamCaption})}
+
+Removes an item from the catalog.
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & the item to remove from the catalog. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_catalog_ae98f7aa3ff2ed7aaaa444137fda7ed3d}\label{classorder_1_1_catalog_ae98f7aa3ff2ed7aaaa444137fda7ed3d}} 
+\index{order.Catalog@{order.Catalog}!searchItemById@{searchItemById}}
+\index{searchItemById@{searchItemById}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{searchItemById()}{searchItemById()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classorder_1_1_item}{Item}} order.\+Catalog.\+search\+Item\+By\+Id (\begin{DoxyParamCaption}\item[{String}]{id }\end{DoxyParamCaption})}
+
+Searches for an item in the catalog with the specified ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the ID of the item to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the item with the specified ID, or null if the item is not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_catalog_aba6d6fe5b8fa2d34168103c0598ef3ff}\label{classorder_1_1_catalog_aba6d6fe5b8fa2d34168103c0598ef3ff}} 
+\index{order.Catalog@{order.Catalog}!searchItemByName@{searchItemByName}}
+\index{searchItemByName@{searchItemByName}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{searchItemByName()}{searchItemByName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classorder_1_1_item}{Item}} order.\+Catalog.\+search\+Item\+By\+Name (\begin{DoxyParamCaption}\item[{String}]{name }\end{DoxyParamCaption})}
+
+Searches for an item in the catalog with the specified name. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the item to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the item with the specified name, or null if the item is not found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_catalog_a16ac921cf3bf957465dd75a2b7a2ad3e}\label{classorder_1_1_catalog_a16ac921cf3bf957465dd75a2b7a2ad3e}} 
+\index{order.Catalog@{order.Catalog}!toString@{toString}}
+\index{toString@{toString}!order.Catalog@{order.Catalog}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily String order.\+Catalog.\+to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a string representation of the catalog.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the catalog. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/order/\mbox{\hyperlink{_catalog_8java}{Catalog.\+java}}\end{DoxyCompactItemize}

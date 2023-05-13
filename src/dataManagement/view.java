@@ -1,18 +1,43 @@
+/**
+ * The view class is responsible for handling the user interface. It provides the user with various options to register, login, browse items, view cart, place an order, add an item, close an order and logout. The class has an instance of DataManager, Authentication and Catalog. The instance of Authentication class is used to register, login and get the current user. The instance of Catalog class is used to browse items. The class has an instance of Customer and Admin that are used to handle the user account and role respectively.
+ */
 package dataManagement;
+
 import order.*;
 import users.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class view {
+    /**
+     * An instance of DataManager class
+     */
     private static DataManager dataManager = new DataManager();
+
+    /**
+     * An instance of Authentication class
+     */
     private static Authentication authentication = new Authentication(dataManager.loadCustomers());
+
+    /**
+     * An instance of Catalog class
+     */
     private static Catalog catalog = new Catalog(dataManager.loadItems());
+
+    /**
+     * An instance of Customer class
+     */
     private static Customer customer;
+
+    /**
+     * An instance of Admin class
+     */
     private static Admin admin;
 
+    /**
+     * This method is the main method that handles the user interface. It provides the user with various options to register, login, browse items, view cart, place an order, add an item, close an order and logout.
+     */
     public static void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to our store!");
@@ -89,6 +114,13 @@ public class view {
         }
     }
 
+/**
+ * This method is used to register a new account.
+ * The user is prompted to choose an account type: customer or admin.
+ * If the user chooses customer, the registerCustomer() method is called.
+ * If the user chooses admin, the registerAdmin() method is called.
+ * If the user chooses an invalid option, an error message is displayed.
+ */
     private static void register() {
         // Prompt user for customer details
         //choose account type
@@ -109,6 +141,13 @@ public class view {
         }
 
     }
+    /**
+     * This method is used to login to an existing account.
+     * The user is prompted to choose an account type: customer or admin.
+     * If the user chooses customer, the loginCustomer() method is called.
+     * If the user chooses admin, the loginAdmin() method is called.
+     * If the user chooses an invalid option, an error message is displayed.
+     */
     public static void registerCustomer(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter first name: ");
@@ -130,6 +169,12 @@ public class view {
             System.out.println("Failed to create customer account.");
         }
     }
+    /**
+     * This method is used to register a new admin account.
+     * The user is prompted to enter the admin details.
+     * If the admin account is created successfully, a success message is displayed.
+     * If the admin account is not created successfully, an error message is displayed.
+     */
     public static void registerAdmin(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter first name: ");
@@ -151,6 +196,13 @@ public class view {
 
 
     }
+    /**
+     * This method is used to log in to an existing account.
+     * The user is prompted to choose an account type: customer or admin.
+     * If the user chooses customer, the loginCustomer() method is called.
+     * If the user chooses admin, the loginAdmin() method is called.
+     * If the user chooses an invalid option, an error message is displayed.
+     */
     private static void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose account type:");
@@ -189,6 +241,12 @@ public class view {
                 System.out.println("Invalid choice, please try again.");
         }
     }
+
+    /**
+     * This method is used to view the catalog.
+     * If the user is logged in, they are prompted to add an item to their cart.
+     * If the user chooses to add an item to their cart, the addItemToCart() method is called.
+     */
     public static void browseCatalog(){
         System.out.println("Catalog:");
         System.out.println(catalog.toString());
@@ -204,8 +262,15 @@ public class view {
         }
 
     }
+
+    /**
+     * This method is used to add an item to the cart.
+     * The user is prompted to enter the quantity of the item they want to add to the cart.
+     * If the item is added successfully, a success message is displayed.
+     * If the item is not added successfully, an error message is displayed.
+     * @param id
+     */
     public static void addItemToCart(String id){
-        //get quantity
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter quantity: ");
         int quantity = scanner.nextInt();
@@ -230,30 +295,18 @@ public class view {
             System.out.println("Item not found.");
         }
     }
-    public static void removeItemFromCart(String name){
-        Scanner scanner = new Scanner(System.in);
-        Cart cart = Cart.getCartByCustomer(customer);
-        if (cart == null) {
-            System.out.println("Your cart is empty.");
-            return;
-        }
-        for (OrderItem item : cart.getItems()) {
-            if (item.getItem().getName().equals(name)) {
-                System.out.println("Enter quantity: ");
-                int quantity = scanner.nextInt();
-                if (cart.removeItemFromCart(item.getItem(), quantity)) {
-                    System.out.println("Item removed from cart successfully.");
-                    viewCart();
-                } else {
-                    System.out.println("Failed to remove item from cart.");
-                }
-                return;
-            }else {
-                System.out.println("Item not found.");
-            }
-        }
-    }
 
+
+    /**
+     * This method is used to view the cart.
+     * The user is prompted to choose an option: add item, remove item, or exit.
+     * If the user chooses to add an item, the browseCatalog() method is called and the user is prompted to enter the ID of the item they want to add.
+     * If the user chooses to remove an item, the removeItemFromCart() method is called.
+     * If the user chooses to exit, the method returns.
+     * If the user chooses an invalid option, an error message is displayed.
+     * If the cart is empty, an error message is displayed.
+     * If the cart is not empty, the items in the cart are displayed.
+     */
     public static void viewCart() {
         Cart cart = Cart.getCartByCustomer(customer);
         if (cart == null || cart.getItems().isEmpty()) {
@@ -269,32 +322,32 @@ public class view {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose an option:");
         System.out.println("1. Add item");
-        System.out.println("2. Remove item");
-        System.out.println("3. Exit");
+        System.out.println("2. Exit");
         int option = scanner.nextInt();
         scanner.nextLine();
         switch (option) {
             case 1:
-                System.out.println("Enter item ID: ");
-                String id = scanner.nextLine();
-                addItemToCart(id);
+                browseCatalog();
                 break;
             case 2:
-                System.out.println("Enter item ID: ");
-                String itemId = scanner.nextLine();
-                removeItemFromCart(itemId);
-                break;
-            case 3:
                 break;
             default:
                 System.out.println("Invalid choice, please try again.");
         }
 
     }
-    public static void checkout() {
-        // Get the Customer object from somewhere
 
-        // Get the Cart object associated with the Customer object
+    /**
+     * This method is used to check out.
+     * The user is prompted to choose a payment method: cash, credit card, or debit card.
+     * If the user chooses cash, the amount to be paid is displayed.
+     * If the user chooses credit card, the amount to be paid is displayed and the user is prompted to enter their credit card number.
+     * If the user chooses E-Payment, the amount to be paid is displayed and the user is prompted to enter their E-Wallet number and password.
+     * If the user chooses an invalid option, an error message is displayed.
+     * If the cart is empty, an error message is displayed.
+     */
+    public static void checkout() {
+
         Cart cart = Cart.getCartByCustomer(customer);
 
         // Check if the Cart object is null or empty
@@ -308,7 +361,7 @@ public class view {
         System.out.println("Choose payment method:");
         System.out.println("1. Cash");
         System.out.println("2. Credit Card");
-        System.out.println("3. Debit Card");
+        System.out.println("3. E-Payment");
         int option = scanner.nextInt();
         scanner.nextLine();
 
@@ -349,6 +402,13 @@ public class view {
         }
     }
 
+    /**
+     * This method is used to add an item to the catalog.
+     * The user is prompted to enter the item name, description, price, quantity, discount, brand, and category.
+     * If the item is added successfully, a success message is displayed.
+     * If the item is not added successfully, an error message is displayed.
+     * If the user enters an invalid input, an error message is displayed.
+     */
     public static void addItem(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter item name: ");
@@ -371,6 +431,14 @@ public class view {
         Item item = new Item(dataManager.getNextItemId(), name, description,price,quantity, discount, brand, category);
         catalog.addItemToCatalog(item);
     }
+
+    /**
+     * This method is used to close an order.
+     * The user is prompted to enter the order ID.
+     * If the order is found, the order is closed and a success message is displayed.
+     * If the order is not found, an error message is displayed.
+     * If the order is already closed, an error message is displayed.
+     */
     public static void closeOrder(){
         DataManager dataManager = new DataManager();
         ArrayList<Order> orders = dataManager.loadOrders();
@@ -383,7 +451,7 @@ public class view {
         String id = scanner.nextLine();
             for (Order o : orders) {
                 if (o.getOrderId().equals(id)) {
-                    if(o.getStatus().equals("Closed")){
+                    if(o.getStatus().equals("delivered")){
                         System.out.println("Order is already closed.");
                         return;
                     }

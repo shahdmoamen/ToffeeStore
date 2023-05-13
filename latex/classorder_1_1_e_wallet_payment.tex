@@ -1,0 +1,167 @@
+\hypertarget{classorder_1_1_e_wallet_payment}{}\doxysection{order.\+EWallet\+Payment Class Reference}
+\label{classorder_1_1_e_wallet_payment}\index{order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_e_wallet_payment_a0c0a97d2bbc46043bce7654f5dd7c0f5}{EWallet\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}}, String e\+Wallet\+Id, String e\+Wallet\+Password)
+\item 
+\mbox{\hyperlink{classorder_1_1_e_wallet_payment_a4aae9325fbe63838141ec31928fd7d47}{EWallet\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+String \mbox{\hyperlink{classorder_1_1_e_wallet_payment_a8e82c75fb40c07ddcd261ed0fe52a94d}{get\+EWallet\+Id}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_e_wallet_payment_a0b29b68f26370607e458a6a2926ef664}{set\+EWallet\+Id}} (String e\+Wallet\+Id)
+\item 
+String \mbox{\hyperlink{classorder_1_1_e_wallet_payment_a1e1b2c27effc415ecfcb81df0173ac98}{get\+EWallet\+Password}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_e_wallet_payment_a7b9eef1fbd4673fb2fa6110236a5e3f9}{set\+EWallet\+Password}} (String e\+Wallet\+Password)
+\item 
+String \mbox{\hyperlink{classorder_1_1_e_wallet_payment_aefe40f4d0d3f066ca4cc97dffa602c05}{get\+Payment\+Details}} ()
+\item 
+boolean \mbox{\hyperlink{classorder_1_1_e_wallet_payment_aa4b7b9c1762f63b282c8d10c891f6d12}{process\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classorder_1_1_payment}{order.\+Payment}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_payment_aaa2a06b356da1a02d0a78564861bde86}{Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a5f3c9dbe2aa247620ff83f495c241666}{get\+Amount}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_payment_a15068af9fa768b779c6d7dbf33493352}{set\+Amount}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract boolean \mbox{\hyperlink{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}{process\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract String \mbox{\hyperlink{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}{get\+Payment\+Details}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{classorder_1_1_payment}{order.\+Payment}}}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class represents an electronic wallet payment for an order. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a0c0a97d2bbc46043bce7654f5dd7c0f5}\label{classorder_1_1_e_wallet_payment_a0c0a97d2bbc46043bce7654f5dd7c0f5}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!EWalletPayment@{EWalletPayment}}
+\index{EWalletPayment@{EWalletPayment}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{EWalletPayment()}{EWalletPayment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily order.\+EWallet\+Payment.\+EWallet\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount,  }\item[{String}]{e\+Wallet\+Id,  }\item[{String}]{e\+Wallet\+Password }\end{DoxyParamCaption})}
+
+Constructs a new EWallet\+Payment object with the given amount and e-\/wallet credentials.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount to be paid \\
+\hline
+{\em e\+Wallet\+Id} & the ID of the e-\/wallet account \\
+\hline
+{\em e\+Wallet\+Password} & the password of the e-\/wallet account \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a4aae9325fbe63838141ec31928fd7d47}\label{classorder_1_1_e_wallet_payment_a4aae9325fbe63838141ec31928fd7d47}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!EWalletPayment@{EWalletPayment}}
+\index{EWalletPayment@{EWalletPayment}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{EWalletPayment()}{EWalletPayment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily order.\+EWallet\+Payment.\+EWallet\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})}
+
+Constructs a new EWallet\+Payment object with the given amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount to be paid \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a8e82c75fb40c07ddcd261ed0fe52a94d}\label{classorder_1_1_e_wallet_payment_a8e82c75fb40c07ddcd261ed0fe52a94d}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!getEWalletId@{getEWalletId}}
+\index{getEWalletId@{getEWalletId}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{getEWalletId()}{getEWalletId()}}
+{\footnotesize\ttfamily String order.\+EWallet\+Payment.\+get\+EWallet\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the ID of the e-\/wallet account.
+
+\begin{DoxyReturn}{Returns}
+the ID of the e-\/wallet account 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a1e1b2c27effc415ecfcb81df0173ac98}\label{classorder_1_1_e_wallet_payment_a1e1b2c27effc415ecfcb81df0173ac98}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!getEWalletPassword@{getEWalletPassword}}
+\index{getEWalletPassword@{getEWalletPassword}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{getEWalletPassword()}{getEWalletPassword()}}
+{\footnotesize\ttfamily String order.\+EWallet\+Payment.\+get\+EWallet\+Password (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the password of the e-\/wallet account.
+
+\begin{DoxyReturn}{Returns}
+the password of the e-\/wallet account 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_aefe40f4d0d3f066ca4cc97dffa602c05}\label{classorder_1_1_e_wallet_payment_aefe40f4d0d3f066ca4cc97dffa602c05}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!getPaymentDetails@{getPaymentDetails}}
+\index{getPaymentDetails@{getPaymentDetails}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{getPaymentDetails()}{getPaymentDetails()}}
+{\footnotesize\ttfamily String order.\+EWallet\+Payment.\+get\+Payment\+Details (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a string representation of the payment details.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the payment details 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}{order.\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_aa4b7b9c1762f63b282c8d10c891f6d12}\label{classorder_1_1_e_wallet_payment_aa4b7b9c1762f63b282c8d10c891f6d12}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!processPayment@{processPayment}}
+\index{processPayment@{processPayment}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{processPayment()}{processPayment()}}
+{\footnotesize\ttfamily boolean order.\+EWallet\+Payment.\+process\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})}
+
+Processes the payment and returns whether it was successful or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount to be paid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the payment was successful, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}{order.\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a0b29b68f26370607e458a6a2926ef664}\label{classorder_1_1_e_wallet_payment_a0b29b68f26370607e458a6a2926ef664}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!setEWalletId@{setEWalletId}}
+\index{setEWalletId@{setEWalletId}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{setEWalletId()}{setEWalletId()}}
+{\footnotesize\ttfamily void order.\+EWallet\+Payment.\+set\+EWallet\+Id (\begin{DoxyParamCaption}\item[{String}]{e\+Wallet\+Id }\end{DoxyParamCaption})}
+
+Sets the ID of the e-\/wallet account.
+
+
+\begin{DoxyParams}{Parameters}
+{\em e\+Wallet\+Id} & the ID of the e-\/wallet account \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classorder_1_1_e_wallet_payment_a7b9eef1fbd4673fb2fa6110236a5e3f9}\label{classorder_1_1_e_wallet_payment_a7b9eef1fbd4673fb2fa6110236a5e3f9}} 
+\index{order.EWalletPayment@{order.EWalletPayment}!setEWalletPassword@{setEWalletPassword}}
+\index{setEWalletPassword@{setEWalletPassword}!order.EWalletPayment@{order.EWalletPayment}}
+\doxysubsubsection{\texorpdfstring{setEWalletPassword()}{setEWalletPassword()}}
+{\footnotesize\ttfamily void order.\+EWallet\+Payment.\+set\+EWallet\+Password (\begin{DoxyParamCaption}\item[{String}]{e\+Wallet\+Password }\end{DoxyParamCaption})}
+
+Sets the password of the e-\/wallet account.
+
+
+\begin{DoxyParams}{Parameters}
+{\em e\+Wallet\+Password} & the password of the e-\/wallet account \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/order/\mbox{\hyperlink{_e_wallet_payment_8java}{EWallet\+Payment.\+java}}\end{DoxyCompactItemize}

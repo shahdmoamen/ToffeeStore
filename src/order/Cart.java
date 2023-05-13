@@ -1,10 +1,14 @@
+/**
+ * The Cart class represents the shopping cart of a customer. It contains an ArrayList of OrderItems,
+ * the total discount, total price, and a reference to the Customer that owns the cart. It also provides methods
+ * to add and remove items from the cart, calculate the total discount, clear the cart, and checkout.
+ */
 package order;
+
 import dataManagement.DataManager;
-import users.Address;
 import users.Customer;
-import java.util.Scanner;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Cart {
     private ArrayList<OrderItem> cartItems;
@@ -12,6 +16,12 @@ public class Cart {
     private double totalPrice;
     private Customer customer;
 
+    /**
+     * Constructs a new Cart object with a given customer and list of cart items.
+     *
+     * @param customer  the customer who owns the cart
+     * @param cartItems the list of cart items
+     */
     public Cart(Customer customer, ArrayList<OrderItem> cartItems) {
         this.cartItems = cartItems;
         this.customer = customer;
@@ -19,6 +29,14 @@ public class Cart {
         totalPrice = calculateTotalPrice();
     }
 
+    /**
+     * Constructs a new Cart object with a given customer, list of cart items, total discount, and total price.
+     *
+     * @param customer      the customer who owns the cart
+     * @param cartItems     the list of cart items
+     * @param totalDiscount the total discount applied to the cart
+     * @param totalPrice    the total price of the cart
+     */
     public Cart(Customer customer, ArrayList<OrderItem> cartItems, double totalDiscount, double totalPrice) {
         this.cartItems = cartItems;
         this.customer = customer;
@@ -26,33 +44,72 @@ public class Cart {
         this.totalPrice = totalPrice;
     }
 
+    /**
+     * Sets the customer who owns the cart.
+     *
+     * @param customer the customer who owns the cart
+     */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
+    /**
+     * Returns the customer who owns the cart.
+     *
+     * @return the customer who owns the cart
+     */
     public Customer getCustomer() {
         return customer;
     }
+
+    /**
+     * Returns the list of cart items.
+     *
+     * @return the list of cart items
+     */
     public ArrayList<OrderItem> getItems() {
         return cartItems;
     }
 
+    /**
+     * Returns the total price of the cart.
+     *
+     * @return the total price of the cart
+     */
     public double getTotal() {
         return totalPrice;
     }
 
+    /**
+     * Returns the total discount applied to the cart.
+     *
+     * @return the total discount applied to the cart
+     */
     public double getTotalDiscount() {
         return totalDiscount;
     }
 
+    /**
+     * Removes all items from the cart.
+     */
     public void clear() {
         cartItems.clear();
     }
 
+    /**
+     * Returns true if the cart is empty, false otherwise.
+     *
+     * @return true if the cart is empty, false otherwise
+     */
     public boolean isEmpty() {
         return cartItems.isEmpty();
     }
 
+    /**
+     * Returns a string representation of the cart.
+     *
+     * @return a string representation of the cart
+     */
     @Override
     public String toString() {
         String result = "";
@@ -64,7 +121,24 @@ public class Cart {
         return result;
     }
 
-    public void checkout(Payment payment, Customer customer,String phone,String shippingAddress){
+/**
+ * Checks out the cart by processing a payment, creating a new order, and updating the inventory.
+ *
+ *
+ */
+    /**
+
+     Allows a customer to checkout and create a new order with the provided payment method, customer details, phone number and shipping address.
+
+     @param payment Payment object representing the payment method selected by the customer
+
+     @param customer Customer object representing the customer checking out
+
+     @param phone String representing the phone number of the customer
+
+     @param shippingAddress String representing the shipping address of the customer
+     */
+    public void checkout(Payment payment, Customer customer, String phone, String shippingAddress) {
         DataManager dataManager = new DataManager();
         ArrayList<Order> orders = dataManager.loadOrders();
         ArrayList<Item> items = dataManager.loadItems();
@@ -78,16 +152,19 @@ public class Cart {
         if (payment == null) {
             System.out.println("Payment method not set!");
             return;
-        }//check if quantity is enough
-        for(OrderItem orderItem : cart.getItems()){
+        }
+
+// Check if quantity is enough
+        for (OrderItem orderItem : cart.getItems()) {
             Item item = orderItem.getItem();
-            for(Item i : items){
-                if(i.getName().equals(item.getName())){
-                    if(i.getQuantity() < orderItem.getQuantity()){
-                        System.out.println(i.getName()+"is out of stock !");
+            for (Item i : items) {
+                if (i.getName().equals(item.getName())) {
+                    if (i.getQuantity() < orderItem.getQuantity()) {
+                        System.out.println(i.getName() + " is out of stock!");
                         return;
                     }
-                }break;
+                }
+                break;
             }
         }
 
@@ -109,24 +186,38 @@ public class Cart {
                         break;
                     }
                 }
-            }if(cart!=null){
-                removeFromCarts(cart , carts);
+            }
+            if (cart != null) {
+                removeFromCarts(cart, carts);
                 dataManager.saveCarts(carts);
-                }
-
-        }
-        else {
+            }
+        } else {
             System.out.println("Payment failed!");
         }
     }
-    public void removeFromCarts(Cart cart , ArrayList<Cart> carts){
-        for(int i = 0 ; i < carts.size() ; i++){
-            if(cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())){
+
+    /**
+
+     Removes a given cart from the list of carts.
+     @param cart The Cart object to be removed from the list of carts
+     @param carts The ArrayList of all carts to be searched for the given cart object
+     */
+    public void removeFromCarts(Cart cart, ArrayList<Cart> carts) {
+        for (int i = 0; i < carts.size(); i++) {
+            if (cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())) {
                 carts.remove(i);
                 break;
             }
         }
     }
+    /**
+
+     Adds a given OrderItem object to the cart of the current customer.
+
+     @param orderItem The OrderItem object to be added to the cart
+
+     @return boolean indicating whether the operation was successful
+     */
     public boolean addItemToCart(OrderItem orderItem) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();
@@ -169,7 +260,10 @@ public class Cart {
         return true;
     }
 
-
+    /**
+     * Calculates the total price of the cart.
+     * @return double representing the total discount on the cart
+     */
     public double calculateTotalDiscount() {
         double total = 0;
         for (OrderItem item : cartItems) {
@@ -177,50 +271,10 @@ public class Cart {
         }
         return total;
     }
-    public boolean removeItemFromCart(Item item, int quantity) {
-        DataManager dataManager = new DataManager();
-        ArrayList<Cart> carts = dataManager.loadCarts();
-
-        Cart cart = Cart.getCartByCustomer(customer);
-        if (cart == null) {
-            System.out.println("No cart found for customer!");
-            return false;
-        }
-
-        boolean foundItem = false;
-        for (OrderItem orderItem : cart.getItems()) {
-            if (orderItem.getItem().equals(item)) {
-                if (orderItem.getQuantity() < quantity) {
-                    System.out.println("Not enough quantity to remove!");
-                    return false;
-                }if(orderItem.getQuantity() == quantity){
-                    cart.getItems().remove(orderItem);
-                    break;
-                }
-                orderItem.setQuantity(orderItem.getQuantity() - quantity);
-                if (orderItem.getQuantity() == 0) {
-                    cart.getItems().remove(orderItem);
-                }
-                foundItem = true;
-                break;
-            }
-        }
-        if (!foundItem) {
-            System.out.println("Item not found in cart!");
-            return false;
-        }
-        for (int i = 0; i < carts.size(); i++) {
-            if (cart.getCustomer().getEmail().equals(carts.get(i).getCustomer().getEmail())) {
-                carts.set(i, cart);
-                break;
-            }
-        }
-        dataManager.saveCarts(carts);
-        System.out.println(quantity + " " + item.getName() + " removed from cart.");
-        return true;
-    }
-
-
+    /**
+     * Calculates the total price of the cart.
+     * @return double representing the total price of the cart
+     */
     public double calculateTotalPrice() {
         double total = 0;
         for (OrderItem item : cartItems) {
@@ -229,6 +283,11 @@ public class Cart {
         return total;
     }
 
+    /**
+     * Returns the cart of the given customer.
+     * @param customer The customer whose cart is to be returned
+     * @return Cart object of the given customer
+     */
     public static Cart getCartByCustomer(Customer customer) {
         DataManager dataManager = new DataManager();
         ArrayList<Cart> carts = dataManager.loadCarts();

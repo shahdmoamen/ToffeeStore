@@ -1,0 +1,112 @@
+\hypertarget{classorder_1_1_payment}{}\doxysection{order.\+Payment Class Reference}
+\label{classorder_1_1_payment}\index{order.Payment@{order.Payment}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_payment_aaa2a06b356da1a02d0a78564861bde86}{Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a5f3c9dbe2aa247620ff83f495c241666}{get\+Amount}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_payment_a15068af9fa768b779c6d7dbf33493352}{set\+Amount}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract boolean \mbox{\hyperlink{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}{process\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract String \mbox{\hyperlink{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}{get\+Payment\+Details}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classorder_1_1_payment_aaa2a06b356da1a02d0a78564861bde86}\label{classorder_1_1_payment_aaa2a06b356da1a02d0a78564861bde86}} 
+\index{order.Payment@{order.Payment}!Payment@{Payment}}
+\index{Payment@{Payment}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{Payment()}{Payment()}}
+{\footnotesize\ttfamily order.\+Payment.\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})}
+
+Creates a new payment with the specified amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount of the payment \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classorder_1_1_payment_a5f3c9dbe2aa247620ff83f495c241666}\label{classorder_1_1_payment_a5f3c9dbe2aa247620ff83f495c241666}} 
+\index{order.Payment@{order.Payment}!getAmount@{getAmount}}
+\index{getAmount@{getAmount}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{getAmount()}{getAmount()}}
+{\footnotesize\ttfamily double order.\+Payment.\+get\+Amount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the amount of the payment.
+
+\begin{DoxyReturn}{Returns}
+the amount of the payment 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}\label{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}} 
+\index{order.Payment@{order.Payment}!getPaymentDetails@{getPaymentDetails}}
+\index{getPaymentDetails@{getPaymentDetails}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{getPaymentDetails()}{getPaymentDetails()}}
+{\footnotesize\ttfamily abstract String order.\+Payment.\+get\+Payment\+Details (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [abstract]}}
+
+Returns a string representation of the payment details.
+
+\begin{DoxyReturn}{Returns}
+a string representation of the payment details 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classorder_1_1_cash_payment_ad06abee90c51dc6bd72b5961f3493d72}{order.\+Cash\+Payment}}, \mbox{\hyperlink{classorder_1_1_e_wallet_payment_aefe40f4d0d3f066ca4cc97dffa602c05}{order.\+EWallet\+Payment}}, and \mbox{\hyperlink{classorder_1_1_visa_payment_a0b4c45e959828aa9cb398225f5e08963}{order.\+Visa\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}\label{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}} 
+\index{order.Payment@{order.Payment}!processPayment@{processPayment}}
+\index{processPayment@{processPayment}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{processPayment()}{processPayment()}}
+{\footnotesize\ttfamily abstract boolean order.\+Payment.\+process\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [abstract]}}
+
+Processes the payment for the specified amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the amount to be processed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the payment was successful, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classorder_1_1_cash_payment_ade65d305269d1d4612b11fdf30120f57}{order.\+Cash\+Payment}}, \mbox{\hyperlink{classorder_1_1_e_wallet_payment_aa4b7b9c1762f63b282c8d10c891f6d12}{order.\+EWallet\+Payment}}, and \mbox{\hyperlink{classorder_1_1_visa_payment_aa156c6d14d47e65f149b07b7067733b5}{order.\+Visa\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_payment_a15068af9fa768b779c6d7dbf33493352}\label{classorder_1_1_payment_a15068af9fa768b779c6d7dbf33493352}} 
+\index{order.Payment@{order.Payment}!setAmount@{setAmount}}
+\index{setAmount@{setAmount}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{setAmount()}{setAmount()}}
+{\footnotesize\ttfamily void order.\+Payment.\+set\+Amount (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})}
+
+Sets the amount of the payment.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the new amount of the payment \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}\label{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}} 
+\index{order.Payment@{order.Payment}!amount@{amount}}
+\index{amount@{amount}!order.Payment@{order.Payment}}
+\doxysubsubsection{\texorpdfstring{amount}{amount}}
+{\footnotesize\ttfamily double order.\+Payment.\+amount\hspace{0.3cm}{\ttfamily [protected]}}
+
+The amount of the payment. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/order/\mbox{\hyperlink{_payment_8java}{Payment.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,122 @@
+\hypertarget{classorder_1_1_cash_payment}{}\doxysection{order.\+Cash\+Payment Class Reference}
+\label{classorder_1_1_cash_payment}\index{order.CashPayment@{order.CashPayment}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_cash_payment_ad3415c24d0ba00b07bb427494c037f7f}{Cash\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}}, double cash\+Tendered)
+\item 
+double \mbox{\hyperlink{classorder_1_1_cash_payment_a952481c01d9cf8ab03f64a9aad2d9933}{get\+Cash\+Tendered}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_cash_payment_af1a81a459d8f08145121f0135b94ce12}{set\+Cash\+Tendered}} (double cash\+Tendered)
+\item 
+String \mbox{\hyperlink{classorder_1_1_cash_payment_ad06abee90c51dc6bd72b5961f3493d72}{get\+Payment\+Details}} ()
+\item 
+boolean \mbox{\hyperlink{classorder_1_1_cash_payment_ade65d305269d1d4612b11fdf30120f57}{process\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classorder_1_1_payment}{order.\+Payment}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classorder_1_1_payment_aaa2a06b356da1a02d0a78564861bde86}{Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a5f3c9dbe2aa247620ff83f495c241666}{get\+Amount}} ()
+\item 
+void \mbox{\hyperlink{classorder_1_1_payment_a15068af9fa768b779c6d7dbf33493352}{set\+Amount}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract boolean \mbox{\hyperlink{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}{process\+Payment}} (double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}})
+\item 
+abstract String \mbox{\hyperlink{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}{get\+Payment\+Details}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{classorder_1_1_payment}{order.\+Payment}}}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classorder_1_1_payment_a8e290f49682e8a03e3c710827401b77d}{amount}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class representing a cash payment made for an order. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classorder_1_1_cash_payment_ad3415c24d0ba00b07bb427494c037f7f}\label{classorder_1_1_cash_payment_ad3415c24d0ba00b07bb427494c037f7f}} 
+\index{order.CashPayment@{order.CashPayment}!CashPayment@{CashPayment}}
+\index{CashPayment@{CashPayment}!order.CashPayment@{order.CashPayment}}
+\doxysubsubsection{\texorpdfstring{CashPayment()}{CashPayment()}}
+{\footnotesize\ttfamily order.\+Cash\+Payment.\+Cash\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount,  }\item[{double}]{cash\+Tendered }\end{DoxyParamCaption})}
+
+Constructs a new cash payment object with the given amount and cash tendered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the total amount due for the order \\
+\hline
+{\em cash\+Tendered} & the amount of cash tendered by the customer \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classorder_1_1_cash_payment_a952481c01d9cf8ab03f64a9aad2d9933}\label{classorder_1_1_cash_payment_a952481c01d9cf8ab03f64a9aad2d9933}} 
+\index{order.CashPayment@{order.CashPayment}!getCashTendered@{getCashTendered}}
+\index{getCashTendered@{getCashTendered}!order.CashPayment@{order.CashPayment}}
+\doxysubsubsection{\texorpdfstring{getCashTendered()}{getCashTendered()}}
+{\footnotesize\ttfamily double order.\+Cash\+Payment.\+get\+Cash\+Tendered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the amount of cash tendered for the payment.
+
+\begin{DoxyReturn}{Returns}
+the amount of cash tendered 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classorder_1_1_cash_payment_ad06abee90c51dc6bd72b5961f3493d72}\label{classorder_1_1_cash_payment_ad06abee90c51dc6bd72b5961f3493d72}} 
+\index{order.CashPayment@{order.CashPayment}!getPaymentDetails@{getPaymentDetails}}
+\index{getPaymentDetails@{getPaymentDetails}!order.CashPayment@{order.CashPayment}}
+\doxysubsubsection{\texorpdfstring{getPaymentDetails()}{getPaymentDetails()}}
+{\footnotesize\ttfamily String order.\+Cash\+Payment.\+get\+Payment\+Details (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns a string describing the details of the cash payment.
+
+\begin{DoxyReturn}{Returns}
+a string describing the payment details 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classorder_1_1_payment_ae9f2ec37c27e238771d4eef23638d99c}{order.\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_cash_payment_ade65d305269d1d4612b11fdf30120f57}\label{classorder_1_1_cash_payment_ade65d305269d1d4612b11fdf30120f57}} 
+\index{order.CashPayment@{order.CashPayment}!processPayment@{processPayment}}
+\index{processPayment@{processPayment}!order.CashPayment@{order.CashPayment}}
+\doxysubsubsection{\texorpdfstring{processPayment()}{processPayment()}}
+{\footnotesize\ttfamily boolean order.\+Cash\+Payment.\+process\+Payment (\begin{DoxyParamCaption}\item[{double}]{amount }\end{DoxyParamCaption})}
+
+Processes the cash payment for the given amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & the total amount due for the order \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the payment is successful, false otherwise 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classorder_1_1_payment_aef0527dee8fcff0c7f0f33a98869aec3}{order.\+Payment}}.
+
+\mbox{\Hypertarget{classorder_1_1_cash_payment_af1a81a459d8f08145121f0135b94ce12}\label{classorder_1_1_cash_payment_af1a81a459d8f08145121f0135b94ce12}} 
+\index{order.CashPayment@{order.CashPayment}!setCashTendered@{setCashTendered}}
+\index{setCashTendered@{setCashTendered}!order.CashPayment@{order.CashPayment}}
+\doxysubsubsection{\texorpdfstring{setCashTendered()}{setCashTendered()}}
+{\footnotesize\ttfamily void order.\+Cash\+Payment.\+set\+Cash\+Tendered (\begin{DoxyParamCaption}\item[{double}]{cash\+Tendered }\end{DoxyParamCaption})}
+
+Sets the amount of cash tendered for the payment.
+
+
+\begin{DoxyParams}{Parameters}
+{\em cash\+Tendered} & the new amount of cash tendered \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/order/\mbox{\hyperlink{_cash_payment_8java}{Cash\+Payment.\+java}}\end{DoxyCompactItemize}

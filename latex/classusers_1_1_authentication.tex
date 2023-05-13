@@ -1,0 +1,171 @@
+\hypertarget{classusers_1_1_authentication}{}\doxysection{users.\+Authentication Class Reference}
+\label{classusers_1_1_authentication}\index{users.Authentication@{users.Authentication}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classusers_1_1_authentication_aeda5060a898f78a73a710ea14f7dc45b}{Authentication}} (Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$ customers)
+\item 
+void \mbox{\hyperlink{classusers_1_1_authentication_a9dc878d2edfaa913f2cf02aeee80c0a9}{set\+Customers}} (Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$ customers)
+\item 
+\mbox{\hyperlink{classusers_1_1_admin}{Admin}} \mbox{\hyperlink{classusers_1_1_authentication_ab910b538c84749ed9e52e8248eccc846}{get\+Admin}} ()
+\item 
+void \mbox{\hyperlink{classusers_1_1_authentication_ab73c758e8c683e543e87731d616e88bf}{set\+Admin}} (\mbox{\hyperlink{classusers_1_1_admin}{Admin}} admin)
+\item 
+\mbox{\hyperlink{classusers_1_1_customer}{Customer}} \mbox{\hyperlink{classusers_1_1_authentication_a37d2f3e75d4832b0e5694b43a5ade7c2}{get\+Customer}} ()
+\item 
+void \mbox{\hyperlink{classusers_1_1_authentication_a64586768216b268d1a2477044592d0ba}{set\+Customer}} (\mbox{\hyperlink{classusers_1_1_customer}{Customer}} customer)
+\item 
+Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$ \mbox{\hyperlink{classusers_1_1_authentication_a71a6f7347e90eed51aeb63cc53d45a8b}{get\+Customers}} ()
+\item 
+boolean \mbox{\hyperlink{classusers_1_1_authentication_a24207ecc27b2e10e802f8a7f2c533aa6}{login\+Customer}} (String email, String password)
+\item 
+boolean \mbox{\hyperlink{classusers_1_1_authentication_a6889fffc622a0797996d45ba7ae82ffd}{login\+Admin}} (String email, String password)
+\item 
+boolean \mbox{\hyperlink{classusers_1_1_authentication_a1fbf9bf15eaa52cecbdff0585a3bfa04}{register\+Customer}} (\mbox{\hyperlink{classusers_1_1_customer}{Customer}} customer)
+\item 
+boolean \mbox{\hyperlink{classusers_1_1_authentication_a2b744093762b92e3cf60069b0f706633}{register\+Admin}} (\mbox{\hyperlink{classusers_1_1_admin}{Admin}} admin)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classusers_1_1_authentication_aeda5060a898f78a73a710ea14f7dc45b}\label{classusers_1_1_authentication_aeda5060a898f78a73a710ea14f7dc45b}} 
+\index{users.Authentication@{users.Authentication}!Authentication@{Authentication}}
+\index{Authentication@{Authentication}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{Authentication()}{Authentication()}}
+{\footnotesize\ttfamily users.\+Authentication.\+Authentication (\begin{DoxyParamCaption}\item[{Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$}]{customers }\end{DoxyParamCaption})}
+
+Constructor for the Authentication class. 
+\begin{DoxyParams}{Parameters}
+{\em customers} & an Array\+List of Customer objects \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classusers_1_1_authentication_ab910b538c84749ed9e52e8248eccc846}\label{classusers_1_1_authentication_ab910b538c84749ed9e52e8248eccc846}} 
+\index{users.Authentication@{users.Authentication}!getAdmin@{getAdmin}}
+\index{getAdmin@{getAdmin}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{getAdmin()}{getAdmin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classusers_1_1_admin}{Admin}} users.\+Authentication.\+get\+Admin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for the admin object. \begin{DoxyReturn}{Returns}
+the admin object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a37d2f3e75d4832b0e5694b43a5ade7c2}\label{classusers_1_1_authentication_a37d2f3e75d4832b0e5694b43a5ade7c2}} 
+\index{users.Authentication@{users.Authentication}!getCustomer@{getCustomer}}
+\index{getCustomer@{getCustomer}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{getCustomer()}{getCustomer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classusers_1_1_customer}{Customer}} users.\+Authentication.\+get\+Customer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for the customer object. \begin{DoxyReturn}{Returns}
+the customer object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a71a6f7347e90eed51aeb63cc53d45a8b}\label{classusers_1_1_authentication_a71a6f7347e90eed51aeb63cc53d45a8b}} 
+\index{users.Authentication@{users.Authentication}!getCustomers@{getCustomers}}
+\index{getCustomers@{getCustomers}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{getCustomers()}{getCustomers()}}
+{\footnotesize\ttfamily Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$ users.\+Authentication.\+get\+Customers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for the customers Array\+List. \begin{DoxyReturn}{Returns}
+an Array\+List of Customer objects 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a6889fffc622a0797996d45ba7ae82ffd}\label{classusers_1_1_authentication_a6889fffc622a0797996d45ba7ae82ffd}} 
+\index{users.Authentication@{users.Authentication}!loginAdmin@{loginAdmin}}
+\index{loginAdmin@{loginAdmin}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{loginAdmin()}{loginAdmin()}}
+{\footnotesize\ttfamily boolean users.\+Authentication.\+login\+Admin (\begin{DoxyParamCaption}\item[{String}]{email,  }\item[{String}]{password }\end{DoxyParamCaption})}
+
+Authenticates an admin with the given email and password. 
+\begin{DoxyParams}{Parameters}
+{\em email} & the admin\textquotesingle{}s email \\
+\hline
+{\em password} & the admin\textquotesingle{}s password \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the authentication is successful, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a24207ecc27b2e10e802f8a7f2c533aa6}\label{classusers_1_1_authentication_a24207ecc27b2e10e802f8a7f2c533aa6}} 
+\index{users.Authentication@{users.Authentication}!loginCustomer@{loginCustomer}}
+\index{loginCustomer@{loginCustomer}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{loginCustomer()}{loginCustomer()}}
+{\footnotesize\ttfamily boolean users.\+Authentication.\+login\+Customer (\begin{DoxyParamCaption}\item[{String}]{email,  }\item[{String}]{password }\end{DoxyParamCaption})}
+
+Authenticates a customer with the given email and password. 
+\begin{DoxyParams}{Parameters}
+{\em email} & the customer\textquotesingle{}s email \\
+\hline
+{\em password} & the customer\textquotesingle{}s password \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the authentication is successful, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a2b744093762b92e3cf60069b0f706633}\label{classusers_1_1_authentication_a2b744093762b92e3cf60069b0f706633}} 
+\index{users.Authentication@{users.Authentication}!registerAdmin@{registerAdmin}}
+\index{registerAdmin@{registerAdmin}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{registerAdmin()}{registerAdmin()}}
+{\footnotesize\ttfamily boolean users.\+Authentication.\+register\+Admin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classusers_1_1_admin}{Admin}}}]{admin }\end{DoxyParamCaption})}
+
+Registers a new Admin in the system and saves their information to the data manager. Sends a verification code to the Admin\textquotesingle{}s email address for confirmation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em admin} & The Admin to be registered. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if registration is successful, False otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_a1fbf9bf15eaa52cecbdff0585a3bfa04}\label{classusers_1_1_authentication_a1fbf9bf15eaa52cecbdff0585a3bfa04}} 
+\index{users.Authentication@{users.Authentication}!registerCustomer@{registerCustomer}}
+\index{registerCustomer@{registerCustomer}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{registerCustomer()}{registerCustomer()}}
+{\footnotesize\ttfamily boolean users.\+Authentication.\+register\+Customer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classusers_1_1_customer}{Customer}}}]{customer }\end{DoxyParamCaption})}
+
+Registers a new customer with the given customer object. 
+\begin{DoxyParams}{Parameters}
+{\em customer} & a Customer object representing the new customer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the registration is successful, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classusers_1_1_authentication_ab73c758e8c683e543e87731d616e88bf}\label{classusers_1_1_authentication_ab73c758e8c683e543e87731d616e88bf}} 
+\index{users.Authentication@{users.Authentication}!setAdmin@{setAdmin}}
+\index{setAdmin@{setAdmin}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{setAdmin()}{setAdmin()}}
+{\footnotesize\ttfamily void users.\+Authentication.\+set\+Admin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classusers_1_1_admin}{Admin}}}]{admin }\end{DoxyParamCaption})}
+
+Setter method for the admin object. 
+\begin{DoxyParams}{Parameters}
+{\em admin} & the admin object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classusers_1_1_authentication_a64586768216b268d1a2477044592d0ba}\label{classusers_1_1_authentication_a64586768216b268d1a2477044592d0ba}} 
+\index{users.Authentication@{users.Authentication}!setCustomer@{setCustomer}}
+\index{setCustomer@{setCustomer}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{setCustomer()}{setCustomer()}}
+{\footnotesize\ttfamily void users.\+Authentication.\+set\+Customer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classusers_1_1_customer}{Customer}}}]{customer }\end{DoxyParamCaption})}
+
+Setter method for the customer object. 
+\begin{DoxyParams}{Parameters}
+{\em customer} & the customer object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classusers_1_1_authentication_a9dc878d2edfaa913f2cf02aeee80c0a9}\label{classusers_1_1_authentication_a9dc878d2edfaa913f2cf02aeee80c0a9}} 
+\index{users.Authentication@{users.Authentication}!setCustomers@{setCustomers}}
+\index{setCustomers@{setCustomers}!users.Authentication@{users.Authentication}}
+\doxysubsubsection{\texorpdfstring{setCustomers()}{setCustomers()}}
+{\footnotesize\ttfamily void users.\+Authentication.\+set\+Customers (\begin{DoxyParamCaption}\item[{Array\+List$<$ \mbox{\hyperlink{classusers_1_1_customer}{Customer}} $>$}]{customers }\end{DoxyParamCaption})}
+
+Setter method for the customers Array\+List. 
+\begin{DoxyParams}{Parameters}
+{\em customers} & an Array\+List of Customer objects \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/users/\mbox{\hyperlink{_authentication_8java}{Authentication.\+java}}\end{DoxyCompactItemize}

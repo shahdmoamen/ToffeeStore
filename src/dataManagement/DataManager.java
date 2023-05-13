@@ -1,31 +1,39 @@
-package dataManagement;
-import order.*;
-import users.*;
+/**
 
-import java.io.*;
-import java.util.ArrayList;
+ This class is responsible for managing the data of the customers, admins, orders, items and carts of the system.
+ */
+ package dataManagement;
+ import order.*;
+ import users.*;
+ import java.io.*;
+ import java.util.ArrayList;
 
+ public class DataManager {
 
-public class DataManager {
+ private final String CUSTOMERS_FILE = "customers.csv";
+ private final String ADMINS_FILE = "admins.csv";
+ private final String ORDERS_FILE = "orders.csv";
+ private final String ITEMS_FILE = "items.csv";
+ private final String CARTS_FILE ="carts.csv";
 
-    private final String CUSTOMERS_FILE = "customers.csv";
-    private final String ADMINS_FILE = "admins.csv";
-    private final String ORDERS_FILE = "orders.csv";
-    private final String ITEMS_FILE = "items.csv";
-    private final String CARTS_FILE ="carts.csv";
-
-    // Save methods
-    public void saveCustomers(ArrayList<Customer> customers) {
+ /**
+ * Saves the list of customers to a CSV file.
+ * @param customers An ArrayList of Customer objects to be saved.
+ */
+public void saveCustomers(ArrayList<Customer> customers) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(CUSTOMERS_FILE))) {
-            for (Customer customer : customers) {
-                // id,fname,lname,email,pass,phone,address
-                writer.println(customer.getId()+","+ customer.getFirstName() + "," + customer.getLastName() + "," + customer.getEmail() + "," + customer.getPassword() + "," + customer.getPhoneNumber() + "," + customer.getAddress());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (Customer customer : customers) {
+        // id,fname,lname,email,pass,phone,address
+        writer.println(customer.getId()+","+ customer.getFirstName() + "," + customer.getLastName() + "," + customer.getEmail() + "," + customer.getPassword() + "," + customer.getPhoneNumber() + "," + customer.getAddress());
         }
-    }
-
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        }
+        /**
+         * Saves the list of admins to a CSV file.
+         * @param admins An ArrayList of Admin objects to be saved.
+         */
     public void saveAdmins(ArrayList<Admin> admins) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ADMINS_FILE))) {
             for (Admin admin : admins) {
@@ -36,6 +44,10 @@ public class DataManager {
             e.printStackTrace();
         }
     }
+    /**
+     * Saves the list of orders to a CSV file.
+     * @param orders An ArrayList of Order objects to be saved.
+     */
 
     public void saveOrders(ArrayList<Order> orders) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(ORDERS_FILE))) {
@@ -59,8 +71,11 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-    // save Items
 
+     /**
+      * Saves the list of items to a CSV file.
+      * @param items An ArrayList of Item objects to be saved.
+      */
     public void saveItems(ArrayList<Item> items){
         try (PrintWriter writer = new PrintWriter(new FileWriter(ITEMS_FILE))) {
             for (Item item : items) {
@@ -71,7 +86,10 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-    // save cart
+    /**
+     * Saves the list of carts to a CSV file.
+     * @param carts An ArrayList of Cart objects to be saved.
+     */
     public void saveCarts(ArrayList<Cart> carts) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(CARTS_FILE))) {
             for (Cart cart : carts) {
@@ -87,6 +105,10 @@ public class DataManager {
             e.printStackTrace();
         }
     }
+     /**
+      * Loads the list of customers from a CSV file.
+      * @return An ArrayList of Customer objects.
+      */
     public  ArrayList<Customer> loadCustomers() {
         ArrayList<Customer>customers = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(CUSTOMERS_FILE))) {
@@ -109,6 +131,10 @@ public class DataManager {
             return null;
         }return customers;
     }
+    /**
+     * Loads the list of admins from a CSV file.
+     * @return An ArrayList of Admin objects.
+     */
     public ArrayList<Admin> loadAdmins() {
         ArrayList<Admin>admins = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(ADMINS_FILE))) {
@@ -130,6 +156,10 @@ public class DataManager {
         }return admins;
     }
 
+     /**
+      * loads the list of orders from a CSV file.
+      * @return An ArrayList of Order objects.
+      */
     public ArrayList<Order> loadOrders() {
         ArrayList<Order> orders = new ArrayList<>();
 
@@ -204,6 +234,10 @@ public class DataManager {
         }
         return orders;
     }
+    /**
+     * Loads the list of items from a CSV file.
+     * @return An ArrayList of Item objects.
+     */
 
     public ArrayList<Item> loadItems() {
         ArrayList<Item>items = new ArrayList<>();
@@ -229,6 +263,10 @@ public class DataManager {
             return null;
         }return items;
     }
+    /**
+     * Loads the list of carts from a CSV file.
+     * @return  An ArrayList of Cart objects.
+     */
     public ArrayList<Cart> loadCarts() {
         ArrayList<Cart> carts = new ArrayList<>();
 
@@ -287,6 +325,11 @@ public class DataManager {
         return carts;
     }
 
+     /**
+      * generates the next order ID
+      * @return the next order ID
+      */
+
     public String getNextOrderId() {
         int nextOrderId = 0;
         try {
@@ -309,8 +352,10 @@ public class DataManager {
             return null;}
         return Integer.toString(nextOrderId+1);
     }
-
-
+    /**
+     * generates the next customer ID
+     * @return the next customer ID
+     */
     public String getNextCustomerId() {
         int nextCustomerId = 0;
         try {
@@ -351,6 +396,10 @@ public class DataManager {
         }
         return Integer.toString(nextAdminId+1);
     }
+    /**
+     * generates the next item ID
+     * @return the next item ID
+     */
     public String getNextItemId() {
         int nextItemId = 0;
         try {

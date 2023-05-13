@@ -5,7 +5,19 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+
+ A utility class to send OTP (One-Time Password) to users' email addresses.
+ */
 public class SendOTP {
+
+    /**
+     * Sends OTP to a user's email address.
+     *
+     * @param email The email address to send the OTP to.
+     * @param code  The OTP code to send.
+     * @return True if the OTP was sent successfully, false otherwise.
+     */
     public static boolean SendOTP(String email, int code) {
         String host = "smtp.gmail.com";
         String username = "toffeestore.fcai@gmail.com";
@@ -39,6 +51,12 @@ public class SendOTP {
         }
     }
 
+    /**
+     * This method sends a verification code to the email of the given customer and verifies it.
+     *
+     * @param customer the customer object whose email address is used for verification
+     * @return true if the email was sent and the verification code was entered correctly, false otherwise
+     */
     public boolean sendVerificationCode(Customer customer) {
         boolean isEmailSend = false;
         SendOTP sendOtp = new SendOTP();
@@ -62,6 +80,13 @@ public class SendOTP {
         }
         return isEmailSend;
     }
+
+    /**
+     * This method sends a verification code to the email of the given admin and verifies it.
+     *
+     * @param admin the admin object whose email address is used for verification
+     * @return true if the email was sent and the verification code was entered correctly, false otherwise
+     */
     public boolean sendVerificationCode(Admin admin) {
         boolean isEmailSend = false;
         SendOTP sendOtp = new SendOTP();

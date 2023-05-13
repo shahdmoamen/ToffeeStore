@@ -15,7 +15,7 @@ public class view {
 
     public static void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to our store!");
+        System.out.println("!Welcome to our store!");
         while (true) {
             System.out.println("\nWhat would you like to do?");
 

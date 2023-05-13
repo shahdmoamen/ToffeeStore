@@ -7,7 +7,7 @@ The following files and directories are used in the repository:
 ```
 -README.md:this file shows an overview of the project and it's features and files and tools that used in this project.
 -Viewclass:this file contain the class which is used to be the backend interface that the user interact with.
--DataManagmentsClass:this directory is responsible for saving or loading the information of customers,admins,carts,items and orders. 
+-SystemManagmentsClass:this directory is responsible for saving or loading the information of customers,admins,carts,items and orders. 
 -Orderclasses:this dircetory contain classes that is responsible for placing the order and adding or removing items of the cart and deal with the payment methods.
 -Userclasses:this directory contain the classes that is responsible for registration and saving the admins and the customers.
 ```

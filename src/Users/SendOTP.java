@@ -107,6 +107,9 @@ public class SendOTP {
                     isEmailSend = false;
                 }
             }
+        }else {
+            System.out.println("Failed to send email");
+            isEmailSend = false;
         }
         return isEmailSend;
     }

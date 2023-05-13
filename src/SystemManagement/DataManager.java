@@ -160,81 +160,86 @@ public void saveCustomers(ArrayList<Customer> customers) {
       * loads the list of orders from a CSV file.
       * @return An ArrayList of Order objects.
       */
-    public ArrayList<Order> loadOrders() {
-        ArrayList<Order> orders = new ArrayList<>();
+     public ArrayList<Order> loadOrders() {
+         ArrayList<Order> orders = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE))) {
-            String line;
-            boolean newOrder = true;
-            Order order = null;
+         try (BufferedReader reader = new BufferedReader(new FileReader(ORDERS_FILE))) {
+             String line;
+             boolean newOrder = true;
+             Order order = null;
 
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
+             while ((line = reader.readLine()) != null) {
+                 String[] parts = line.split(",");
 
-                if (newOrder && parts[0].equals("ORDER")) {
-                    String orderId = parts[1];
-                    double totalPrice = Double.parseDouble(parts[2]);
-                    String phone = parts[3];
-                    String status = parts[4];
-                    String address = parts[5];
-                    Customer customer = null;
-                    ArrayList<OrderItem> items = new ArrayList<>();
-                    Payment paymentMethod = null;
+                 if (newOrder && parts[0].equals("ORDER")) {
+                     String orderId = parts[1];
+                     double totalPrice = Double.parseDouble(parts[2]);
+                     String phone = parts[3];
+                     String status = parts[4];
+                     String address = parts[5];
+                     Customer customer = null;
+                     ArrayList<OrderItem> items = new ArrayList<>();
+                     Payment paymentMethod = null;
 
-                    while ((line = reader.readLine()) != null) {
-                        parts = line.split(",");
+                     while ((line = reader.readLine()) != null) {
+                         parts = line.split(",");
 
-                        if (parts[0].equals("CUSTOMER")) {
-                            String customerId = parts[1];
-                            String firstName = parts[2];
-                            String lastName = parts[3];
-                            String email = parts[4];
-                            String password = parts[5];
-                            String phoneNumber = parts[6];
-                            String customerAddress = parts[7];
-                            customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, customerAddress);
-                        } else if (parts[0].equals("ITEM")) {
-                            String itemId = parts[1];
-                            String itemName = parts[2];
-                            String itemDescription = parts[3];
-                            double itemPrice = Double.parseDouble(parts[4]);
-                            int itemQuantity = Integer.parseInt(parts[5]);
-                            double itemDiscount = Double.parseDouble(parts[6]);
-                            String itemBrand = parts[7];
-                            String category = parts[8];
-                            int quantityBought = Integer.parseInt(parts[9]);
-                            Item item = new Item(itemId, itemName, itemDescription, itemPrice, itemQuantity, itemDiscount, itemBrand, category);
-                            items.add(new OrderItem(item, quantityBought));
-                        } else if (parts[0].equals("VISA_PAYMENT")) {
-                            double amount = Double.parseDouble(parts[1]);
-                            String cardNumber = parts[2];
-                            String expirationDate = parts[3];
-                            String cvv = parts[4];
-                            paymentMethod = new VisaPayment(amount, cardNumber, expirationDate,cvv);
-                        } else if (parts[0].equals("CASH_PAYMENT")) {
-                            double amount = Double.parseDouble(parts[1]);
-                            double cashTendered = Double.parseDouble(parts[2]);
-                            paymentMethod = new CashPayment(amount, cashTendered);
-                        } else if (parts[0].equals("EWALLET_PAYMENT")) {
-                            double amount = Double.parseDouble(parts[1]);
-                            String eWalletId = parts[2];
-                            String eWalletPassword = parts[3];
-                            paymentMethod = new EWalletPayment(amount, eWalletId, eWalletPassword);
-
-                        } else {
-                            break;
-                        }
-                    }
-                    orders.add(new Order(orderId, customer,totalPrice, phone, status, address, items, paymentMethod));
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading orders");
-            return null;
-        }
-        return orders;
-    }
-    /**
+                         if (parts[0].equals("CUSTOMER")) {
+                             String customerId = parts[1];
+                             String firstName = parts[2];
+                             String lastName = parts[3];
+                             String email = parts[4];
+                             String password = parts[5];
+                             String phoneNumber = parts[6];
+                             String customerAddress = parts[7];
+                             customer = new Customer(customerId, firstName, lastName, email, password, phoneNumber, customerAddress);
+                         } else if (parts[0].equals("ITEM")) {
+                             String itemId = parts[1];
+                             String itemName = parts[2];
+                             String itemDescription = parts[3];
+                             double itemPrice = Double.parseDouble(parts[4]);
+                             int itemQuantity = Integer.parseInt(parts[5]);
+                             double itemDiscount = Double.parseDouble(parts[6]);
+                             String itemBrand = parts[7];
+                             String category = parts[8];
+                             int quantityBought = Integer.parseInt(parts[9]);
+                             Item item = new Item(itemId, itemName, itemDescription, itemPrice, itemQuantity, itemDiscount, itemBrand, category);
+                             items.add(new OrderItem(item, quantityBought));
+                         } else if (parts[0].equals("VISA_PAYMENT")) {
+                             double amount = Double.parseDouble(parts[1]);
+                             String cardNumber = parts[2];
+                             String expirationDate = parts[3];
+                             String cvv = parts[4];
+                             paymentMethod = new VisaPayment(amount, cardNumber, expirationDate, cvv);
+                             break; // stop reading payment information once payment is found
+                         } else if (parts[0].equals("CASH_PAYMENT")) {
+                             double amount = Double.parseDouble(parts[1]);
+                             double cashTendered = Double.parseDouble(parts[2]);
+                             paymentMethod = new CashPayment(amount, cashTendered);
+                             break; // stop reading payment information once payment is found
+                         } else if (parts[0].equals("EWALLET_PAYMENT")) {
+                             double amount = Double.parseDouble(parts[1]);
+                             String eWalletId = parts[2];
+                             String eWalletPassword = parts[3];
+                             paymentMethod = new EWalletPayment(amount, eWalletId, eWalletPassword);
+                             break; // stop reading payment information once payment is found
+                         } else {
+                             break;
+                         }
+                     }
+                     orders.add(new Order(orderId, customer, totalPrice, phone, status, address, items, paymentMethod));
+                     newOrder = true;
+                 } else {
+                     newOrder = false;
+                 }
+             }
+         } catch (IOException e) {
+             System.out.println("Error loading orders");
+             return null;
+         }
+         return orders;
+     }
+     /**
      * Loads the list of items from a CSV file.
      * @return An ArrayList of Item objects.
      */

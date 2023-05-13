@@ -449,20 +449,19 @@ public class view {
         }
         System.out.println("Enter order id: ");
         String id = scanner.nextLine();
-            for (Order o : orders) {
-                if (o.getOrderId().equals(id)) {
-                    if(o.getStatus().equals("delivered")){
-                        System.out.println("Order is already closed.");
-                        return;
-                    }
-                    o.closeOrder();
-                    dataManager.saveOrders(orders);
-                    System.out.println("Order closed successfully.");
+        for (Order o : orders) {
+            if (o.getOrderId().equals(id)) {
+                if(o.getStatus().equals("delivered")){
+                    System.out.println("Order is already closed.");
                     return;
-                }else {
-                    System.out.println("Order not found.");
+                }
+                o.closeOrder();
+                dataManager.saveOrders(orders);
+                System.out.println("Order closed successfully.");
+                return;
             }
-
         }
+        System.out.println("Order not found.");
     }
+
 }
